@@ -1,0 +1,153 @@
+import rdflib
+from rdflib import URIRef, Literal, Namespace
+from rdflib.namespace import FOAF, XSD, RDF, RDFS, OWL
+
+g = rdflib.Graph()
+# namespace
+EX = Namespace('http://example.org/')
+FC = Namespace('http://focu.io/schema#')
+FCD = Namespace('http://focu.io/data#')
+DPR = Namespace('http://dbpedia.org/resource/')
+
+university = FC['University']
+g.add((university, RDF.type, RDFS.Class))
+g.add((university, RDFS['subClassOf'], FOAF.Organization))
+g.add((university, RDFS.label, Literal('University', lang='en')))
+g.add((university, RDFS.comment, Literal('University Class', lang='en')))
+
+course = FC['Course']
+g.add((course, RDF.type, RDFS.Class))
+g.add((course, RDFS['subClassOf'], FOAF.Organization))
+g.add((course, RDFS.label, Literal('Course', lang='en')))
+g.add((course, RDFS.comment, Literal('Course Class', lang='en')))
+
+lecture = FC['Lecture']
+g.add((lecture, RDF.type, RDFS.Class))
+g.add((lecture, RDFS['subClassOf'], FOAF.Organization))
+g.add((lecture, RDFS.label, Literal('Lecture', lang='en')))
+g.add((lecture, RDFS.comment, Literal('Lecture Class', lang='en')))
+
+lab = FC['Lab']
+g.add((lab, RDF.type, RDFS.Class))
+g.add((lab, RDFS['subClassOf'], FC['Lecture']))
+g.add((lab, RDFS.label, Literal('Lab', lang='en')))
+g.add((lab, RDFS.comment, Literal('Lab Class', lang='en')))
+
+tut = FC['Tutorial']
+g.add((tut, RDF.type, RDFS.Class))
+g.add((tut, RDFS['subClassOf'], FC['Lecture']))
+g.add((tut, RDFS.label, Literal('Tutorial', lang='en')))
+g.add((tut, RDFS.comment, Literal('Tutorial Class', lang='en')))
+
+topic = FC['Topic']
+g.add((topic, RDF.type, RDFS.Class))
+g.add((topic, RDFS['subClassOf'], FOAF.Organization))
+g.add((topic, RDFS.label, Literal('Topic', lang='en')))
+g.add((topic, RDFS.comment, Literal('Topic Class', lang='en')))
+
+subj = FC['Subject']
+g.add((subj, RDF.type, RDFS.Class))
+g.add((subj, RDFS['subClassOf'], FOAF.Organization))
+g.add((subj, RDFS.label, Literal('Subject', lang='en')))
+g.add((subj, RDFS.comment, Literal('Subject Class', lang='en')))
+
+num = FC['number']
+g.add((num, RDF.type, RDF.Property))
+g.add((num, RDFS.label, Literal('number', lang='en')))
+g.add((num, RDFS.comment, Literal('Course number, Lab number, or Tutorial number.', lang='en')))
+g.add((num, RDFS.domain, FC['Lecture']))
+g.add((num, RDFS.range, XSD['integer']))
+
+desc = FC['description']
+g.add((desc, RDF.type, RDF.Property))
+g.add((desc, RDFS.label, Literal('description', lang='en')))
+g.add((desc, RDFS.comment, Literal('Course description.', lang='en')))
+g.add((desc, RDFS.domain, FC['Course']))
+g.add((desc, RDFS.range, XSD['string']))
+
+outline = FC['outline']
+g.add((outline, RDF.type, RDF.Property))
+g.add((outline, RDFS.label, Literal('outline', lang='en')))
+g.add((outline, RDFS.comment, Literal('Course outline.', lang='en')))
+g.add((outline, RDFS.domain, FC['Course']))
+g.add((outline, RDFS.range, XSD['string']))
+
+content = FC['content']
+g.add((content, RDF.type, RDF.Property))
+g.add((content, RDFS.label, Literal('content', lang='en')))
+g.add((content, RDFS.comment, Literal('Lab content or tutorial content.', lang='en')))
+g.add((content, RDFS.domain, FC['Lab']))  # dont know how to add two
+g.add((content, RDFS.range, XSD['string']))
+
+labAssociat = FC['labAssociateWith']
+g.add((labAssociat, RDF.type, RDF.Property))
+g.add((labAssociat, RDFS.label, Literal('lab associated with a specific lecture', lang='en')))
+g.add((labAssociat, RDFS.comment, Literal('lab associated with a specific lecture', lang='en')))
+g.add((labAssociat, RDFS.domain, FC['Lab']))
+g.add((labAssociat, RDFS.range, FC['Lecture']))
+
+tutAssociat = FC['tutorialAssociateWith']
+g.add((labAssociat, RDF.type, RDF.Property))
+g.add((labAssociat, RDFS.label, Literal('tutorial associated with a specific lecture', lang='en')))
+g.add((labAssociat, RDFS.comment, Literal('tutorial associated with a specific lecture', lang='en')))
+g.add((labAssociat, RDFS.domain, FC['Tutorial']))
+g.add((labAssociat, RDFS.range, FC['Lecture']))
+
+comp = FCD['COMP']
+g.add((comp, RDF.type, FC['Subject']))
+g.add((comp, FOAF.name, Literal('COMP')))
+
+soen = FCD['SOEN']
+g.add((soen, RDF.type, FC['Subject']))
+g.add((soen, FOAF.name, Literal('SOEN')))
+
+concordia = FCD['Concordia_University']
+g.add((concordia, RDF.type, FC['University']))
+g.add((concordia, FOAF.name, Literal('Concordia University')))
+g.add((concordia, OWL.sameAS, DPR['Concordia_University']))
+g.add((concordia, RDFS.seeAlso, DPR['Concordia_University']))
+
+class1 = FCD['COMP474']
+g.add((class1, RDF.type, FC['Course']))
+g.add((class1, FOAF.name, Literal('Intelligent Systems')))
+g.add((class1, FC['Subject'], FCD['COMP']))
+g.add((class1, FC['number'], Literal('474', datatype=XSD['integer'])))
+g.add((class1, FC['content'], Literal('content...')))
+g.add((class1, RDFS.seeAlso, DPR['Concordia_University']))
+
+lec1 = FCD['lecture1']
+g.add((lec1, RDF.type, FC['Lecture']))
+g.add((lec1, FOAF.name, Literal('Knowledge Graphs')))
+g.add((lec1, FC['number'], Literal('1', datatype=XSD['integer'])))
+g.add((lec1, FC['content'], Literal('content ...')))
+g.add((lec1, RDFS.seeAlso, DPR['Concordia_University']))
+
+lab1 = FCD['lab1']
+g.add((lab1, RDF.type, FC['Lab']))
+g.add((lab1, FOAF.name, Literal('Lab 1')))
+g.add((lab1, FC['number'], Literal('1', datatype=XSD['integer'])))
+g.add((lab1, FC['content'], Literal('content ...')))
+g.add((lab1, FC['labAssociatedWith'], FCD['lecture1']))
+g.add((lab1, RDFS.seeAlso, DPR['Concordia_University']))
+
+topic1 = FCD['topic1']
+g.add((topic1, RDF.type, FC['Topic']))
+g.add((topic1, FOAF.name, Literal('Intelligent Systems')))
+g.add((topic1, OWL.sameAs, DPR['Concordia_University']))
+g.add((topic1, RDFS.seeAlso, DPR['Concordia_University']))
+
+topic2 = FCD['topic2']
+g.add((topic1, RDF.type, FC['Topic']))
+g.add((topic1, FOAF.name, Literal('Expert System')))
+g.add((topic1, OWL.sameAs, DPR['Concordia_University']))
+g.add((topic1, RDFS.seeAlso, DPR['Concordia_University']))
+
+g.bind('ex', EX)
+g.bind('focu', FC)
+g.bind('focudata', FCD)
+g.bind('dbr', DPR)
+g.bind('foaf', FOAF)
+g.bind('owl', OWL)
+
+print(g.serialize(format='ttl').decode('utf-8'))
+g.serialize("SchoolRDF.rdf")
