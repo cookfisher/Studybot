@@ -40,6 +40,15 @@ core:Laboratory a owl:Class ;
         "An organizational unit (as opposed to the physical facility) that performs research, provides services, or processes materials"^^xsd:string ;
     rdfs:subClassOf <http://xmlns.com/foaf/0.1/Organization> .
 	
+core:Dataset a owl:Class ;
+    rdfs:label "Dataset"@en ;
+    obo:IAO_0000112 "US Patent Data; US Job Data"^^xsd:string ;
+    obo:IAO_0000115 "A named collection of data, usually containing only one type of data"^^xsd:string ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom <http://purl.org/ontology/bibo/Document> ;
+            owl:onProperty <http://purl.org/spar/cito/isCitedAsDataSourceBy> ],
+        <http://purl.org/ontology/bibo/Document> .
+	
 core:courseCredits a owl:DatatypeProperty,
         owl:FunctionalProperty ;
     rdfs:label "credits"@en .
@@ -53,6 +62,34 @@ core:Association a owl:Class ;
     obo:IAO_0000115 "A formal organization of people or groups of people around a subject or practice."^^xsd:string,
         "A group of persons or organizations organized for a common purpose."^^xsd:string ;
     rdfs:subClassOf <http://xmlns.com/foaf/0.1/Organization> .
+
+core:Department a owl:Class ;
+    rdfs:label "Department"@en ;
+    obo:IAO_0000112 "Definition modified from the definition here: http://dictionary.reference.com/browse/department. It is difficult to tell the difference between and department and a division."^^xsd:string,
+        "Legal (department within a company); Use for any non-academic department"^^xsd:string ;
+    obo:IAO_0000115 "A unit within a larger organization that addresses a specific subject or area of activity."^^xsd:string ;
+    rdfs:subClassOf <http://xmlns.com/foaf/0.1/Organization> .	
+	
+core:Presentation a owl:Class ;
+    rdfs:label "Presentation"@en ;
+    obo:IAO_0000115 "Encompasses talk, speech, lecture, slide lecture, conference presentation"^^xsd:string ;
+    rdfs:subClassOf <http://purl.org/NET/c4dm/event.owl#Event> .
+	
+core:Project a owl:Class ;
+    rdfs:label "Project"@en ;
+    obo:IAO_0000112 """An endeavor, frequently collaborative, that occurs over a finite period of time and is intended to achieve a particular aim.
+"""^^xsd:string ;
+    obo:IAO_0000115 "An endeavor, frequently collaborative, that occurs over a finite period of time and is intended to achieve a particular aim."^^xsd:string ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom core:DateTimeInterval ;
+            owl:onProperty core:dateTimeInterval ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom rdfs:Literal ;
+            owl:onProperty core:description ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom core:GeographicRegion ;
+            owl:onProperty core:geographicFocus ],
+        obo:BFO_0000015 .
 	
 core:subjectAreaOf a owl:ObjectProperty ;
     rdfs:label "subject area of"@en ;
