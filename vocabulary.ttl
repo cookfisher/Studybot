@@ -8,6 +8,7 @@
 @prefix dbr: <http://dbpedia.org/resource/> .
 @prefix core: <http://vivoweb.org/ontology/core#> .
 @prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
 
 
 focu:University
@@ -77,7 +78,193 @@ skos:related a owl:ObjectProperty,
     rdfs:label "related concept"@en ;
     rdfs:domain skos:Concept ;
     rdfs:range skos:Concept .
+	
+core:Video a owl:Class ;
+    rdfs:label "Video"@en ;
+    obo:IAO_0000115 "Audiovisual recording in video format"^^xsd:string ;
+    rdfs:subClassOf <http://purl.org/ontology/bibo/AudioVisualDocument> .
 
+core:departmentOrSchool a owl:DatatypeProperty ;
+    rdfs:label "department or school name within institution"@en ;
+    vitro:descriptionAnnot "Not intended to be an institution name."^^xsd:string ;
+    rdfs:domain core:EducationalProcess .
+
+core:hasPrerequisite a owl:ObjectProperty ;
+    rdfs:label "has prerequisite"@en ;
+    rdfs:domain core:Course ;
+    rdfs:range core:Course ;
+    owl:inverseOf core:prerequisiteFor .
+	
+core:informationResourceSupportedBy a owl:ObjectProperty ;
+    rdfs:label "supported by"@en ;
+    vitro:descriptionAnnot "an information resource (typically a publication) supported by (typically via funding) an agreement (such as a grant)"^^xsd:string ;
+    rdfs:domain obo:IAO_0000030 ;
+    rdfs:subPropertyOf core:supportedBy ;
+    owl:inverseOf core:supportedInformationResource .
+
+core:majorField a owl:DatatypeProperty ;
+    rdfs:label "major field of degree"@en ;
+    obo:IAO_0000112 "Information Science; Computer Science; Anthropology"^^xsd:string ;
+    rdfs:domain core:EducationalProcess .
+
+core:offers a owl:ObjectProperty ;
+    rdfs:label "offers"@en .
+	
+core:offeredBy a owl:ObjectProperty ;
+    rdfs:label "offered by"@en ;
+    owl:inverseOf core:offers .
+	
+core:overview a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "overview"@en ;
+    obo:IAO_0000112 "My research focuses on diseases of pine crops in the southeastern United States."@en ;
+    obo:IAO_0000115 "Short text for presentation describing the agent's purpose, activities, and/or accomplishments."@en ;
+    rdfs:domain <http://xmlns.com/foaf/0.1/Agent> .
+	
+core:seatingCapacity a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "seating capacity"@en ;
+    obo:IAO_0000112 "55"^^xsd:string,
+        "definition modified from: source (http://en.wikipedia.org/wiki/Seating_capacity)."^^xsd:string ;
+    rdfs:domain core:Room ;
+    rdfs:range xsd:int .
+
+core:start a owl:ObjectProperty ;
+    rdfs:label "start"@en ;
+    rdfs:domain core:DateTimeInterval ;
+    rdfs:range core:DateTimeValue ;
+    rdfs:subPropertyOf core:dateTimeValue .
+
+core:termLabel a owl:DatatypeProperty ;
+    rdfs:label "term label"@en .
+
+core:termType a owl:DatatypeProperty ;
+    rdfs:label "term type"@en .
+	
+core:teachingOverview a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "teaching overview"@en ;
+    obo:IAO_0000112 "Used for a single narrative summary of teaching, typically covering a wide range of courses including for credit and non-credit teaching over multiple semesters; the \"teaches\" property links a person directly with an instance of a Semester Class, typically from an institutional database of record; then use Teacher Role for information about a person's role in non-credit teaching or their specific contribution to individual courses"^^xsd:string ;
+    rdfs:domain <http://xmlns.com/foaf/0.1/Person> .
+	
+core:rank a owl:DatatypeProperty ;
+    rdfs:label "rank"@en ;
+    obo:IAO_0000112 "this number indicates a position in a list"^^xsd:string ;
+    rdfs:range xsd:int .
+	
+core:supplementalInformation a owl:DatatypeProperty ;
+    rdfs:label "supplemental information"@en .
+	
+vcard:hasURL a owl:ObjectProperty ;
+    rdfs:label "has url"@en ;
+    rdfs:comment "To specify a uniform resource locator associated with the object"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
+    owl:equivalentProperty :url 
+	
+vcard:hasSource a owl:ObjectProperty ;
+    rdfs:label "has source"@en ;
+    rdfs:comment "To identify the source of directory information of the object"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> .
+	
+vcard:hasCategory a owl:ObjectProperty ;
+    rdfs:label "has category"@en ;
+    rdfs:comment "Used to support property parameters for the category data property"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> .
+	
+vcard:hasAdditionalName a owl:ObjectProperty ;
+    rdfs:label "has additional name"@en ;
+    rdfs:comment "Used to support property parameters for the additional name data property"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> .
+
+vcard:hasFN a owl:ObjectProperty ;
+    rdfs:label "has formatted name"@en ;
+    rdfs:comment "Used to support property parameters for the formatted name data property"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> .
+	
+vcard:hasRelated a owl:ObjectProperty ;
+    rdfs:label "has related"@en ;
+    rdfs:comment "To specify a relationship between another entity and the entity represented by this object"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> .
+	
+vcard:hasTitle a owl:ObjectProperty ;
+    rdfs:label "has title"@en ;
+    rdfs:comment "Used to support property parameters for the title data property"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> .
+
+vcard:hasUID a owl:ObjectProperty ;
+    rdfs:label "has uid"@en ;
+    rdfs:comment "To specify a value that represents a globally unique identifier corresponding to the object"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> .
+	
+vcard:Name a owl:Class ;
+    rdfs:label "Name"@en ;
+    rdfs:comment "To specify the components of the name of the object"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
+    owl:equivalentClass [ a owl:Class ;
+            owl:unionOf ( [ a owl:Class ;
+                        owl:intersectionOf ( [ a owl:Restriction ;
+                                    owl:onProperty :additional-name ;
+                                    owl:someValuesFrom xsd:string ] [ a owl:Restriction ;
+                                    owl:minCardinality "0"^^xsd:nonNegativeInteger ;
+                                    owl:onProperty :additional-name ] ) ] [ a owl:Class ;
+                        owl:intersectionOf ( [ a owl:Restriction ;
+                                    owl:onProperty :family-name ;
+                                    owl:someValuesFrom xsd:string ] [ a owl:Restriction ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onProperty :family-name ] ) ] [ a owl:Class ;
+                        owl:intersectionOf ( [ a owl:Restriction ;
+                                    owl:onProperty :given-name ;
+                                    owl:someValuesFrom xsd:string ] [ a owl:Restriction ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onProperty :given-name ] ) ] [ a owl:Class ;
+                        owl:intersectionOf ( [ a owl:Restriction ;
+                                    owl:onProperty :honorific-prefix ;
+                                    owl:someValuesFrom xsd:string ] [ a owl:Restriction ;
+                                    owl:minCardinality "0"^^xsd:nonNegativeInteger ;
+                                    owl:onProperty :honorific-prefix ] ) ] [ a owl:Class ;
+                        owl:intersectionOf ( [ a owl:Restriction ;
+                                    owl:onProperty :honorific-suffix ;
+                                    owl:someValuesFrom xsd:string ] [ a owl:Restriction ;
+                                    owl:minCardinality "0"^^xsd:nonNegativeInteger ;
+                                    owl:onProperty :honorific-suffix ] ) ] ) ] .
+
+vcard:VCard a owl:Class ;
+    rdfs:label "VCard"@en ;
+    rdfs:comment "The vCard class is  equivalent to the new Kind class, which is the parent for the four explicit types of vCards (Individual, Organization, Location, Group)"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
+    owl:equivalentClass :Kind .
+
+vcard:fn a owl:DatatypeProperty ;
+    rdfs:label "formatted name"@en ;
+    rdfs:comment "The formatted text corresponding to the name of the object"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
+    rdfs:range xsd:string .
+	
+vcard:url a owl:ObjectProperty ;
+    rdfs:label "url"@en ;
+    rdfs:comment "This object property has been mapped"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
+    owl:equivalentProperty :hasURL .
+	
+vcard:n a owl:ObjectProperty ;
+    rdfs:label "name"@en ;
+    rdfs:comment "This object property has been mapped"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
+    owl:equivalentProperty :hasName .
+	
+vcard:hasName a owl:ObjectProperty ;
+    rdfs:label "has name"@en ;
+    rdfs:comment "To specify the components of the name of the object"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
+    rdfs:range :Name ;
+	
+vcard:organization-unit a owl:DatatypeProperty ;
+    rdfs:label "organizational unit name"@en ;
+    rdfs:comment "To specify the organizational unit name associated with the object"@en ;
+    rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf :organization-name .
+	
 # ============== TODO# some vocabulary need reuse above words
 
 
