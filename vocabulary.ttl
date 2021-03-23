@@ -6,6 +6,8 @@
 @prefix focudata: <http://focu.io/data#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix dbr: <http://dbpedia.org/resource/> .
+@prefix core: <http://vivoweb.org/ontology/core#> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
 
 
 focu:University
@@ -13,6 +15,71 @@ focu:University
   rdfs:subClassOf foaf:Organization ;
   rdfs:label "University"@en ;
   rdfs:comment "University Class"@en.
+
+# the follow vocabulary can use
+core:University a owl:Class ;
+    rdfs:label "University"@en ;
+    obo:IAO_0000112 "Definition taken from: http://en.wikipedia.org/wiki/University"^^xsd:string,
+        "University of Florida; Washington University in St. Louis"^^xsd:string ;
+    obo:IAO_0000115 "An institution of higher education and research, which grants academic degrees in a variety of subjects, and provides both undergraduate education and postgraduate education."^^xsd:string ;
+    rdfs:subClassOf <http://xmlns.com/foaf/0.1/Organization> .
+
+core:Course a owl:Class ;
+    rdfs:label "Course"@en ;
+    obo:IAO_0000112 "A course as taught in one time period (such as a semester; although note that a course could consist of only one meeting (teaching session)) by one or more instructors, normally but not always for credit. Does not represent either each meeting of the course or the course offering such as Biology 101 taught every semester from 1980 to 2010"^^xsd:string ;
+    obo:IAO_0000115 "A course as taught in one time period by one or more instructors, normally but not always for credit. Does not represent either each meeting of the course or the course offering such as Biology 101 taught every semester from 1980 to 2010"^^xsd:string ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom rdfs:Literal ;
+            owl:onProperty core:courseCredits ],
+        <http://purl.org/NET/c4dm/event.owl#Event> .
+  
+core:Laboratory a owl:Class ;
+    rdfs:label "Laboratory"@en ;
+    obo:IAO_0000115 "An organization unit that facilitates or conduits observation, testing, experimentation, or research in a field of study or practice."^^xsd:string,
+        "An organizational unit (as opposed to the physical facility) that performs research, provides services, or processes materials"^^xsd:string ;
+    rdfs:subClassOf <http://xmlns.com/foaf/0.1/Organization> .
+	
+core:courseCredits a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "credits"@en .
+	
+core:description a owl:DatatypeProperty ;
+    rdfs:label "description"@en .
+	
+core:Association a owl:Class ;
+    rdfs:label "Association"@en ;
+    obo:IAO_0000112 "Special Libraries Association; Association for Computing Machinery(ACM); American Medical Informatics Association(AMIA)"^^xsd:string ;
+    obo:IAO_0000115 "A formal organization of people or groups of people around a subject or practice."^^xsd:string,
+        "A group of persons or organizations organized for a common purpose."^^xsd:string ;
+    rdfs:subClassOf <http://xmlns.com/foaf/0.1/Organization> .
+	
+core:subjectAreaOf a owl:ObjectProperty ;
+    rdfs:label "subject area of"@en ;
+    rdfs:subPropertyOf core:conceptAssociatedWith .
+	
+core:hasSubjectArea a owl:ObjectProperty ;
+    rdfs:label "has subject area"@en ;
+    rdfs:subPropertyOf core:hasAssociatedConcept ;
+    owl:inverseOf core:subjectAreaOf .
+	
+
+core:abbreviation a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "abbreviation"@en ;
+    obo:IAO_0000112 "A short form for an longer title or name."^^xsd:string,
+        "B.A."^^xsd:string .
+		
+core:identifier a owl:DatatypeProperty ;
+    rdfs:label "identifier"@en .
+	
+skos:related a owl:ObjectProperty,
+        owl:SymmetricProperty ;
+    rdfs:label "related concept"@en ;
+    rdfs:domain skos:Concept ;
+    rdfs:range skos:Concept .
+
+# ============== TODO# some vocabulary need reuse above words
+
 
 focu:Course
   a rdfs:Class ;
@@ -32,7 +99,7 @@ focu:Lab
   rdfs:label "Lab"@en ;
   rdfs:comment "Lab Class"@en.
 
-focu:Tutotial
+focu:Tutorial
   a rdfs:Class ;
   rdfs:subClassOf focu:Lecture ;
   rdfs:label "Tutotial"@en ;
