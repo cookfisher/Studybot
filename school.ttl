@@ -5,7 +5,8 @@
 @prefix focu: <http://focu.io/schema#> .
 @prefix focudata: <http://focu.io/data#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix vivo: <http://vivoweb.org/ontology/core#> .
 
 
 focu:University
@@ -118,7 +119,7 @@ focudata:SOEN
 focudata:Concordia_University
   a focu:University ;
   foaf:name "Concordia University";
-  rdfs:seeAlso dbpedia:Concordia_University .
+  rdfs:seeAlso dbr:Concordia_University .
 
 focudata:COMP474
   a focu:Course ;
@@ -128,7 +129,7 @@ focudata:COMP474
   focu:offeredAt focudata:Concordia_University;
   focu:description focudata:Knowledge_Graph, focudata:Expert_system;
   focu:outline "outline.....Intelligent Systems" ;
-  rdfs:seeAlso dbpedia:COMP474 .
+  rdfs:seeAlso dbr:COMP474 .
 
 focudata:COMP6741
   owl:sameAs focudata:COMP474 .
@@ -141,15 +142,15 @@ focudata:COMP472
   focu:offeredAt focudata:Concordia_University;
   focu:description focudata:Knowledge_Graph, focudata:Expert_system;
   focu:outline "outline.....Artificial Intelligence" ;
-  rdfs:seeAlso dbpedia:COMP472 .
+  rdfs:seeAlso dbr:COMP472 .
 
 focudata:lecture1
   a focu:Lecture ;
-  foaf:name "Knowledge Graphs";
+  foaf:name "Knowledge Graph";
   focu:number "1"^^xsd:integer ;
   focu:offeredIn focudata:COMP472;
-  focu:content "content.....Knowledge Graphs" ;
-  rdfs:seeAlso dbpedia:lecture1 .
+  focu:content "content.....Knowledge Graph" ;
+  rdfs:seeAlso dbr:lecture1 .
 
 focudata:lab1
   a focu:Lab ;
@@ -157,14 +158,14 @@ focudata:lab1
   focu:number "1"^^xsd:integer ;
   focu:content "content....." ;
   focu:labAssociatedWith focudata:lecture1;
-  rdfs:seeAlso dbpedia:lab1 .
+  rdfs:seeAlso dbr:lab1 .
 
 focudata:Knowledge_Graph
   a focu:Topic ;
   foaf:name "Knowledge Graph";
-  rdfs:seeAlso dbpedia:Knowledge_Graph .
+  rdfs:seeAlso dbr:Knowledge_Graph .
 
 focudata:Expert_system
   a focu:Topic ;
   foaf:name "Expert system";
-  rdfs:seeAlso dbpedia:Expert_system .
+  rdfs:seeAlso dbr:Expert_system .
