@@ -1,0 +1,170 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix focu: <http://focu.io/schema#> .
+@prefix focudata: <http://focu.io/data#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix vivo: <http://vivoweb.org/ontology/core#> .
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix ex: <http://example.com/ns#>.
+
+
+focu:Lecture
+  a rdfs:Class ;
+#  rdfs:subClassOf foaf:Organization ;
+  rdfs:label "Lecture"@en ;
+  rdfs:comment "Lecture Class"@en.
+
+focu:Lab
+  a rdfs:Class ;
+  rdfs:subClassOf focu:Lecture ;
+  rdfs:label "Lab"@en ;
+  rdfs:comment "Lab Class"@en.
+
+focu:Tutotial
+  a rdfs:Class ;
+  rdfs:subClassOf focu:Lecture ;
+  rdfs:label "Tutotial"@en ;
+  rdfs:comment "Tutotial Class"@en.
+
+focu:Topic
+  a rdfs:Class ;
+#  rdfs:subClassOf foaf:Organization ;
+  rdfs:label "Topic"@en ;
+  rdfs:comment "Topic Class"@en.
+
+focu:Subject
+  a rdfs:Class ;
+#  rdfs:subClassOf foaf:Organization ;
+  rdfs:label "Subject"@en ;
+  rdfs:comment "Subject Class"@en.
+
+focu:number
+  a rdf:Property ;
+  rdfs:label "number"@en ;
+  rdfs:comment "Course number, Lab number, or Tutorial number."@en ;
+  rdfs:domain focu:Lecture ;
+  rdfs:range xsd:integer .
+
+
+focu:outline
+  a rdf:Property ;
+  rdfs:label "outline"@en ;
+  rdfs:comment "Course outline."@en ;
+  rdfs:domain vivo:Course ;
+  rdfs:range xsd:string .
+
+focu:content
+  a rdf:Property ;
+  rdfs:label "content"@en ;
+  rdfs:comment "Lab content or tutorial content."@en ;
+  rdfs:domain focu:Lab, focu:Tutotial ;
+  rdfs:range xsd:string .
+
+focu:labAssociatedWith
+  a rdf:Property ;
+  rdfs:label "lab associated with a specific lecture"@en ;
+  rdfs:comment "lab associated with a specific lecture."@en ;
+  rdfs:domain focu:Lab ;
+  rdfs:range focu:Lecture .
+
+focu:tutorialAssociatedWith
+  a rdf:Property ;
+  rdfs:label "tutorial associated with a specific lecture"@en ;
+  rdfs:comment "tutorial associated with a specific lecture."@en ;
+  rdfs:domain focu:Tutotial ;
+  rdfs:range focu:Lecture .
+
+focu:offeredAt
+  a rdf:Property ;
+  rdfs:label "offered in"@en ;
+  rdfs:comment "a course is offered at a univeristy."@en ;
+  rdfs:domain vivo:Course ;
+  rdfs:range vivo:University .
+
+focu:offeredIn
+  a rdf:Property ;
+  rdfs:label "lecture in"@en ;
+  rdfs:comment "a lecture is in a course."@en ;
+  rdfs:domain focu:Lecture ;
+  rdfs:range vivo:Course .
+
+
+focudata:COMP
+  a focu:Subject ;
+  foaf:name "COMP".
+
+focudata:SOEN
+  a focu:Subject ;
+  foaf:name "SOEN".
+
+focudata:Concordia_University
+  a vivo:University ;
+  foaf:name "Concordia University";
+  rdfs:seeAlso dbr:Concordia_University .
+
+focudata:COMP474
+  a vivo:Course ;
+  foaf:name "Intelligent Systems";
+  focu:Subject focudata:COMP;
+  focu:number "474"^^xsd:integer ;
+  focu:offeredAt focudata:Concordia_University;
+  vivo:description focudata:Knowledge_Graph, focudata:Expert_system;
+  focu:outline "outline.....Intelligent Systems" ;
+  rdfs:seeAlso dbr:COMP474 .
+
+focudata:COMP6741
+  owl:sameAs focudata:COMP474 .
+
+focudata:COMP472
+  a vivo:Course ;
+  foaf:name "Artificial Intelligence";
+  focu:Subject focudata:COMP;
+  focu:number "472"^^xsd:integer ;
+  focu:offeredAt focudata:Concordia_University;
+  vivo:description focudata:Knowledge_Graph, focudata:Expert_system;
+  focu:outline "outline.....Artificial Intelligence" ;
+  rdfs:seeAlso dbr:COMP472 .
+
+focudata:lecture1
+  a focu:Lecture ;
+  foaf:name "Knowledge Graph";
+  focu:number "1"^^xsd:integer ;
+  focu:offeredIn focudata:COMP474;
+  focu:content "content.....Knowledge Graph" ;
+  rdfs:seeAlso dbr:lecture1 .
+
+focudata:lab1
+  a focu:Lab ;
+  foaf:name "Lab1";
+  focu:number "1"^^xsd:integer ;
+  focu:content "content....." ;
+  focu:labAssociatedWith focudata:lecture1;
+  rdfs:seeAlso dbr:lab1 .
+
+focudata:Knowledge_Graph
+  a focu:Topic ;
+  foaf:name "Knowledge Graph";
+  rdfs:seeAlso dbr:Knowledge_Graph .
+
+focudata:Expert_system
+  a focu:Topic ;
+  foaf:name "Expert system";
+  rdfs:seeAlso dbr:Expert_system .
+
+
+#vivo:Video
+#vivo:majorField
+#vivo:identifier
+#vivo:Program
+#vivo:Laboratory
+#vivo:Student
+#vivo:hasPrerequisite
+#vivo:hasProceedings
+#vivo:offeredBy
+#vivo:overview
+#vivo:courseCredits
+
+
