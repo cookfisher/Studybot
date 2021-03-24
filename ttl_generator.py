@@ -252,7 +252,7 @@ g.add((topic1, RDFS.seeAlso, DBR['Knowledge_Graph']))
 topic2 = FCD['Expert_system']
 g.add((topic2, RDF.type, FC['Topic']))
 g.add((topic2, AIISO['name'], Literal('Expert System')))
-g.add((topic1, FC['topicAssociateWith'], FCD['COMP474']))
+g.add((topic2, FC['topicAssociateWith'], FCD['COMP474']))
 g.add((topic2, RDFS.seeAlso, DBR['Expert_system']))
 
 topic3 = FCD['Breadth-first_search']
