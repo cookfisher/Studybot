@@ -187,7 +187,14 @@ focudata:COMP474
   teach:bookingNumber "474"^^xsd:integer ;
   teach:courseDescription focudata:Knowledge_Graph ;
   rdfs:seeAlso <https://www.concordia.ca/academics/undergraduate/calendar/current/sec71/71-70.html> ;
+  focu:outline <link to html> .
 
+#Lectures
+focudata:lecture1
+    a teach:Lecture ;
+	aiiso:name "Artificial Intelligence: Introduction" ;
+	npg:number "1"^^xsd:integer .
+	
 
 
 
