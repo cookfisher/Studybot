@@ -1,0 +1,106 @@
+Prefix aiiso: <http://purl.org/vocab/aiiso/schema#>
+Prefix dbr: <http://dbpedia.org/resource/>
+Prefix focu: <http://focu.io/schema#>
+Prefix focudata: <http://focu.io/data#>
+Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+Prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+Prefix teach: <http://linkedscience.org/teach/ns#>
+Prefix vivo: <http://vivoweb.org/ontology/core#>
+Prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+
+1.
+
+SELECT (COUNT(distinct ?course) as ?count)
+WHERE
+{
+  ?course a teach:Course.
+}
+
+2.
+
+SELECT (COUNT(?s) as ?sCount)
+WHERE
+{
+  ?s ?p ?o .
+}
+
+3.
+
+SELECT ?topics
+WHERE
+{
+  ?topics focu:topicAssociateWith focudata:COMP472.
+}
+
+4.
+
+SELECT ?course
+WHERE
+{
+  ?course a teach:Course.
+  ?course focu:subject focudata:COMP ;
+}
+
+5.
+
+SELECT ?lecture ?name ?content
+WHERE
+{
+  ?lecture aiiso:name ?name.
+  ?lecture focu:offeredIn focudata:COMP474 .
+  ?lecture focu:content ?content.
+}
+
+6.
+
+SELECT ?lecture ?lab ?lab_name ?content
+WHERE
+{
+  ?lecture focu:offeredIn focudata:COMP474 .
+  ?lab focu:labAssociatedWith ?lecture.
+  ?lab aiiso:name ?lab_name.
+  ?lab focu:content ?content.  
+
+}
+
+7. how many 'comp' courses in Concordia University?
+
+SELECT (COUNT(distinct ?course) as ?count)
+WHERE
+{
+
+	?course a teach:Course .
+	?course a focu:subject focudata:COMP .
+	?course focu:offeredAt focudata:Concordia_University ; 
+}
+
+8. how many contents in lecture2 of COMP474? 
+
+SELECT ?course_name ?lecture_name (COUNT(distinct ?contents) as ?num_contents)
+WHERE
+{
+	?course a vivo:Course .
+	?course focu:number "474" .
+	?course foaf:name ?course_name .
+	?lecture a teach:Lecture .
+	?lecture focu:offeredIn focudata:COMP474 .
+	?lecture aiiso:code 1 .
+	?lecture aiiso:name ?lecture_name .
+	?lecture focu:content ?contents .
+
+}
+
+9. list all lectures' name in COMP474
+
+SELECT ?course_name ?lecture_num ?lecture_name
+WHERE
+{
+	?course a vivo:Course .
+	?course focu:number "474" .
+	?course foaf:name ?course_name .
+	?lecture a teach:Lecture .
+	?lecture focu:offeredIn focudata:COMP474 .
+	?lecture aiiso:code ?lecture_num .
+	?lecture aiiso:name ?lecture_name .
+}
+
