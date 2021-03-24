@@ -5,7 +5,6 @@
 [Please Sign the Expectations-of-Originality Document](https://drive.google.com/file/d/1BMJr71YPzzKaWNK9HbWsQfyomaepXmi7/view?usp=sharing)
 </br>
 </br>
----
 Task List:</br>
 - [ ] Competency Questions
 - [ ] Vocabulary
