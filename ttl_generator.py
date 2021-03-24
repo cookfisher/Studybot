@@ -307,5 +307,4 @@ for index, row in table_merged.iterrows():
 for item in subjects:
     subject_generator(item)
 
-g.serialize(format='ttl', destination="school.ttl")
-
+g.serialize(format='nt', destination="school.ttl")

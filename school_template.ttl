@@ -1,87 +1,98 @@
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix aiiso: <http://purl.org/vocab/aiiso/schema#> .
+@prefix dbr: <http://dbpedia.org/resource/> .
 @prefix focu: <http://focu.io/schema#> .
 @prefix focudata: <http://focu.io/data#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix teach: <http://linkedscience.org/teach/ns#> .
 @prefix vivo: <http://vivoweb.org/ontology/core#> .
-@prefix rr: <http://www.w3.org/ns/r2rml#>.
-@prefix ex: <http://example.com/ns#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 
-focu:Lecture
+focu:CourseOutline
   a rdfs:Class ;
-#  rdfs:subClassOf foaf:Organization ;
-  rdfs:label "Lecture"@en ;
-  rdfs:comment "Lecture Class"@en.
+  rdfs:label "Course Outline"@en ;
+  rdfs:comment "Course Outline"@en .
 
 focu:Lab
   a rdfs:Class ;
-  rdfs:subClassOf focu:Lecture ;
   rdfs:label "Lab"@en ;
-  rdfs:comment "Lab Class"@en.
+  rdfs:comment "Lab Class"@en ;
+  rdfs:subClassOf teach:Lecture .
 
-focu:Tutotial
+focu:Reading
   a rdfs:Class ;
-  rdfs:subClassOf focu:Lecture ;
-  rdfs:label "Tutotial"@en ;
-  rdfs:comment "Tutotial Class"@en.
+  rdfs:label "Reading"@en ;
+  rdfs:comment "Reading"@en .
 
-focu:Topic
+focu:Slide
   a rdfs:Class ;
-#  rdfs:subClassOf foaf:Organization ;
-  rdfs:label "Topic"@en ;
-  rdfs:comment "Topic Class"@en.
+  rdfs:label "Slide"@en ;
+  rdfs:comment "Slide"@en .
 
 focu:Subject
   a rdfs:Class ;
-#  rdfs:subClassOf foaf:Organization ;
   rdfs:label "Subject"@en ;
-  rdfs:comment "Subject Class"@en.
+  rdfs:comment "Subject Class"@en .
 
-focu:number
-  a rdf:Property ;
-  rdfs:label "number"@en ;
-  rdfs:comment "Course number, Lab number, or Tutorial number."@en ;
-  rdfs:domain focu:Lecture ;
-  rdfs:range xsd:integer .
+focu:Topic
+  a rdfs:Class ;
+  rdfs:label "Topic"@en ;
+  rdfs:comment "Topic Class"@en .
+
+focu:Tutorial
+  a rdfs:Class ;
+  rdfs:label "Tutorial"@en ;
+  rdfs:comment "Tutorial Class"@en ;
+  rdfs:subClassOf teach:Lecture .
+
+focu:Worksheet
+  a rdfs:Class ;
+  rdfs:label "Worksheet"@en ;
+  rdfs:comment "Worksheet"@en .
 
 
-focu:outline
-  a rdf:Property ;
-  rdfs:label "outline"@en ;
-  rdfs:comment "Course outline."@en ;
-  rdfs:domain vivo:Course ;
-  rdfs:range xsd:string .
 
 focu:content
   a rdf:Property ;
   rdfs:label "content"@en ;
   rdfs:comment "Lab content or tutorial content."@en ;
-  rdfs:domain focu:Lab, focu:Tutotial ;
-  rdfs:range xsd:string .
+  rdfs:domain focu:Lab, focu:Tutorial ;
+  rdfs:range focu:Reading, focu:Slide, focu:Worksheet, vivo:Video .
 
-focu:labAssociatedWith
+focu:outline
+  a rdf:Property ;
+  rdfs:label "outline"@en ;
+  rdfs:comment "Course outline."@en ;
+  rdfs:domain teach:Course ;
+  rdfs:range focu:CourseOutline .
+
+focu:subject
+  a rdf:Property ;
+  rdfs:label "subject"@en ;
+  rdfs:comment "Course subject."@en ;
+  rdfs:domain teach:Course ;
+  rdfs:range focu:Subject .
+
+focu:labAssociateWith
   a rdf:Property ;
   rdfs:label "lab associated with a specific lecture"@en ;
-  rdfs:comment "lab associated with a specific lecture."@en ;
+  rdfs:comment "lab associated with a specific lecture"@en ;
   rdfs:domain focu:Lab ;
   rdfs:range focu:Lecture .
 
-focu:tutorialAssociatedWith
+focu:tutorialAssociateWith
   a rdf:Property ;
   rdfs:label "tutorial associated with a specific lecture"@en ;
-  rdfs:comment "tutorial associated with a specific lecture."@en ;
-  rdfs:domain focu:Tutotial ;
+  rdfs:comment "tutorial associated with a specific lecture"@en ;
+  rdfs:domain focu:Tutorial ;
   rdfs:range focu:Lecture .
 
 focu:offeredAt
   a rdf:Property ;
   rdfs:label "offered in"@en ;
   rdfs:comment "a course is offered at a univeristy."@en ;
-  rdfs:domain vivo:Course ;
+  rdfs:domain teach:Course ;
   rdfs:range vivo:University .
 
 focu:offeredIn
@@ -89,82 +100,163 @@ focu:offeredIn
   rdfs:label "lecture in"@en ;
   rdfs:comment "a lecture is in a course."@en ;
   rdfs:domain focu:Lecture ;
-  rdfs:range vivo:Course .
+  rdfs:range teach:Course .
+
+focu:topicAssociateWith
+  a rdf:Property ;
+  rdfs:label "topics"@en ;
+  rdfs:comment "topics that are covered in a course or a lecture in a course."@en ;
+  rdfs:domain focu:Topic ;
+  rdfs:range focu:Lecture, teach:Course .
 
 
-focudata:COMP
-  a focu:Subject ;
-  foaf:name "COMP".
-
-focudata:SOEN
-  a focu:Subject ;
-  foaf:name "SOEN".
 
 focudata:Concordia_University
   a vivo:University ;
-  foaf:name "Concordia University";
+  aiiso:name "Concordia University" ;
   rdfs:seeAlso dbr:Concordia_University .
 
-focudata:COMP474
-  a vivo:Course ;
-  foaf:name "Intelligent Systems";
-  focu:Subject focudata:COMP;
-  focu:number "474"^^xsd:integer ;
-  focu:offeredAt focudata:Concordia_University;
-  vivo:description focudata:Knowledge_Graph, focudata:Expert_system;
-  focu:outline "outline.....Intelligent Systems" ;
-  rdfs:seeAlso dbr:COMP474 .
-
-focudata:COMP6741
-  owl:sameAs focudata:COMP474 .
-
 focudata:COMP472
-  a vivo:Course ;
-  foaf:name "Artificial Intelligence";
-  focu:Subject focudata:COMP;
-  focu:number "472"^^xsd:integer ;
-  focu:offeredAt focudata:Concordia_University;
-  vivo:description focudata:Knowledge_Graph, focudata:Expert_system;
-  focu:outline "outline.....Artificial Intelligence" ;
-  rdfs:seeAlso dbr:COMP472 .
+  a teach:Course ;
+  focu:offeredAt focudata:Concordia_University ;
+  focu:subject focudata:COMP ;
+  teach:courseDescription """Scope of AI. First-order logic. Automated reasoning. Search and heuristic search. Game-playing. Planning. Knowledge representation. Probabilistic reasoning. Introduction to machine learning. Introduction to natural language processing. Project. Lectures: three hours per week. Laboratory: two hours per week.
+Prerequisite: COMP 352 or COEN 352.""" ;
+  teach:courseTitle "Artificial Intelligence" ;
+  aiiso:code 472 ;
+  vivo:courseCredits 4.0 .
 
-focudata:lecture1
-  a focu:Lecture ;
-  foaf:name "Knowledge Graph";
-  focu:number "1"^^xsd:integer ;
-  focu:offeredIn focudata:COMP474;
-  focu:content "content.....Knowledge Graph" ;
-  rdfs:seeAlso dbr:lecture1 .
+focudata:COMP474
+  a teach:Course ;
+  focu:offeredAt focudata:Concordia_University ;
+  focu:outline <file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/course_outline_comp474_6741_w2021.pdf> ;
+  focu:subject focudata:COMP ;
+  teach:courseDescription """Rule-based expert systems, blackboard architecture, and agent-based. Knowledge acquisition and representation. Uncertainty and conflict resolution. Reasoning and explanation. Design of intelligent systems. Project. Lectures: three hours per week. Laboratory: two hours per week.
+Prerequisite: COMP 352 or COEN 352.""" ;
+  teach:courseTitle "Intelligent Systems" ;
+  aiiso:code 474 ;
+  vivo:courseCredits 4.0 .
 
-focudata:lab1
+focudata:COMP472_lecture1
+  a teach:Lecture ;
+  focu:content <file:///C:/Users/YZ/Desktop/COMP474/project/COMP472/Lectures/intro-Winter2020.pdf>,
+              <file:///C:/Users/YZ/Desktop/COMP474/project/COMP472/Lectures/search-Winter2020.pdf> ;
+  focu:offeredIn focudata:COMP472 ;
+  aiiso:code 1 ;
+  aiiso:name "Artificial Intelligence: Introduction" .
+
+focudata:COMP474_lecture1
+  a teach:Lecture ;
+  focu:content <file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/Lectures/slides01.pdf>,
+              <https://www.youtube.com/watch?v=P18EdAKuC1U> ;
+  focu:offeredIn focudata:COMP474 ;
+  aiiso:code 1 ;
+  aiiso:name "Introduction to Intelligent Systems" .
+
+focudata:COMP474_lecture2
+  a teach:Lecture ;
+  focu:content <file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/Lectures/py_tut.pdf>,
+              <file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/Lectures/slides02.pdf>,
+              <file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/Lectures/worksheet01.pdf> ;
+  focu:offeredIn focudata:COMP474 ;
+  aiiso:code 2 ;
+  aiiso:name "Knowledge Graphs" .
+
+focudata:COMP472_lecture2
+  a teach:Lecture ;
+  focu:offeredIn focudata:COMP472 ;
+  aiiso:code 2 ;
+  aiiso:name "Artificial Intelligence: State Space Search" .
+
+focudata:COMP472_lab1
   a focu:Lab ;
-  foaf:name "Lab1";
-  focu:number "1"^^xsd:integer ;
-  focu:content "content....." ;
-  focu:labAssociatedWith focudata:lecture1;
-  rdfs:seeAlso dbr:lab1 .
+  focu:content <file:///C:/Users/YZ/Desktop/COMP474/project/COMP472/Lectures/COMP_472_Lab1.pdf> ;
+  focu:labAssociatedWith focudata:COMP472_lecture1 ;
+  aiiso:code 1 ;
+  aiiso:name "COMP472_Lab_1" .
 
-focudata:Knowledge_Graph
+focudata:COMP472_lab2
+  a focu:Lab ;
+  focu:content <file:///C:/Users/YZ/Desktop/COMP474/project/COMP472/Lectures/COMP_472_Lab2.pdf> ;
+  focu:labAssociatedWith focudata:COMP472_lecture2 ;
+  aiiso:code 2 ;
+  aiiso:name "COMP472_Lab_2" ;
+  rdfs:seeAlso <https://rdflib.readthedocs.io/en/stable/index.html> .
+
+focudata:COMP474_lab1
+  a focu:Lab ;
+  focu:content <https://moodle.concordia.ca/moodle/mod/page/view.php?id=2608092> ;
+  focu:labAssociatedWith focudata:COMP474_lecture1 ;
+  aiiso:code 1 ;
+  aiiso:name "COMP474_Lab_1" .
+
+focudata:COMP474_lab2
+  a focu:Lab ;
+  focu:content <https://moodle.concordia.ca/moodle/mod/page/view.php?id=2575768> ;
+  focu:labAssociatedWith focudata:COMP474_lecture2 ;
+  aiiso:code 2 ;
+  aiiso:name "COMP474_Lab_2" ;
+  rdfs:seeAlso <https://rdflib.readthedocs.io/en/stable/index.html> .
+
+focudata:Depth-first_search
   a focu:Topic ;
-  foaf:name "Knowledge Graph";
-  rdfs:seeAlso dbr:Knowledge_Graph .
+  focu:topicAssociateWith focudata:COMP472, focudata:COMP472_lecture2 ;
+  aiiso:name "Depth-first_search" ;
+  rdfs:seeAlso dbr:Depth-first_search .
+
+focudata:Breadth-first_search
+  a focu:Topic ;
+  focu:topicAssociateWith focudata:COMP472, focudata:COMP472_lecture2 ;
+  aiiso:name "Breadth-first_search" ;
+  rdfs:seeAlso dbr:Breadth-first_search .
 
 focudata:Expert_system
   a focu:Topic ;
-  foaf:name "Expert system";
+  focu:topicAssociateWith focudata:COMP474 ;
+  aiiso:name "Expert System" ;
   rdfs:seeAlso dbr:Expert_system .
 
+focudata:Knowledge_Graph
+  a focu:Topic ;
+  focu:topicAssociateWith focudata:COMP474, focudata:COMP474_lecture2 ;
+  aiiso:name "Knowledge Graph" ;
+  rdfs:seeAlso dbr:Knowledge_Graph .
 
-#vivo:Video
-#vivo:majorField
-#vivo:identifier
-#vivo:Program
-#vivo:Laboratory
-#vivo:Student
-#vivo:hasPrerequisite
-#vivo:hasProceedings
-#vivo:offeredBy
-#vivo:overview
-#vivo:courseCredits
+<file:///C:/Users/YZ/Desktop/COMP474/project/COMP472/Lectures/COMP_472_Lab1.pdf>
+  a focu:Slide .
 
+<file:///C:/Users/YZ/Desktop/COMP474/project/COMP472/Lectures/COMP_472_Lab2.pdf>
+  a focu:Slide .
+
+<file:///C:/Users/YZ/Desktop/COMP474/project/COMP472/Lectures/intro-Winter2020.pdf>
+  a focu:Slide .
+
+<file:///C:/Users/YZ/Desktop/COMP474/project/COMP472/Lectures/search-Winter2020.pdf>
+  a focu:Slide .
+
+<file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/Lectures/py_tut.pdf>
+  a focu:Reading .
+
+<file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/Lectures/slides01.pdf>
+  a focu:Slide .
+
+<file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/Lectures/slides02.pdf>
+  a focu:Slide .
+
+<file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/Lectures/worksheet01.pdf>
+  a focu:Worksheet .
+
+<file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/course_outline_comp474_6741_w2021.pdf>
+  a focu:CourseOutline .
+
+<https://www.youtube.com/watch?v=P18EdAKuC1U>
+  a vivo:Video .
+
+focudata:COMP
+  a focu:Subject ;
+  aiiso:name "COMP".
+
+focudata:SOEN
+  a focu:Subject ;
+  aiiso:name "SOEN".
 
