@@ -9,6 +9,8 @@
 @prefix core: <http://vivoweb.org/ontology/core#> .
 @prefix obo: <http://purl.obolibrary.org/obo/> .
 @prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix npg: <http://ns.nature.com/terms/> .
+@prefix teach: <http://linkedscience.org/teach/ns#>.
 
 
 focu:University
@@ -18,6 +20,68 @@ focu:University
   rdfs:comment "University Class"@en.
 
 # the follow vocabulary can use
+npg:number
+    a owl:DatatypeProperty ;
+    rdfs:domain npg:Component ;
+    rdfs:isDefinedBy <http://ns.nature.com/terms/> ;
+    rdfs:range xsd:integer ;
+    skos:definition "The :number property specifies a sequence number for a component such as a figure."@en ;
+    skos:prefLabel "Number"@en .
+
+npg:name
+    a owl:DatatypeProperty ;
+    rdfs:domain npg:Contributor ;
+    rdfs:isDefinedBy <http://ns.nature.com/terms/> ;
+    rdfs:range rdfs:Literal ;
+    skos:definition "The :name property specifies the full name for a thing."@en ;
+    skos:prefLabel "Name"@en .
+
+npg:Subject
+    a owl:Class ;
+    rdfs:isDefinedBy <http://ns.nature.com/terms/> ;
+    rdfs:subClassOf npg:Type ;
+    skos:definition "The :Subject class represents a topic, field of study or research area which can be used to categorise the contents of a publication. The instances of :Subject are organised hierarchically using the SKOS vocabulary."@en ;
+    skos:prefLabel "Subject"@en .
+
+npg:filename
+    a owl:DatatypeProperty ;
+    rdfs:domain npg:Asset ;
+    rdfs:isDefinedBy <http://ns.nature.com/terms/> ;
+    rdfs:range rdfs:Literal ;
+    skos:definition "The :filename property specifies the filename of an asset."@en ;
+    skos:prefLabel "Filename"@en .
+
+npg:example
+    a owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://ns.nature.com/terms/> ;
+    skos:definition "The :example property specifies an example of an entity."@en ;
+    skos:note "This property is similar to void:exampleResource. But see also skos:example."@en ;
+    skos:prefLabel "Example"@en .
+
+npg:id
+    a owl:DatatypeProperty ;
+    rdfs:isDefinedBy <http://ns.nature.com/terms/> ;
+    rdfs:range rdfs:Literal ;
+    skos:definition "The :id property provides a unique ID for a thing."@en ;
+    skos:note "The :id value forms the local part of the full URI for an entity name."@en ;
+    skos:prefLabel "ID"@en .
+
+npg:hasItem
+    a owl:ObjectProperty ;
+    rdfs:domain npg:Publication ;
+    rdfs:isDefinedBy <http://ns.nature.com/terms/> ;
+    rdfs:range npg:Item ;
+    skos:definition "The :hasItem property relates a publication to an item."@en ;
+    skos:prefLabel "Has Item"@en .
+
+npg:hasSubject
+    a owl:ObjectProperty ;
+    rdfs:domain npg:Publication ;
+    rdfs:isDefinedBy <http://ns.nature.com/terms/> ;
+    rdfs:range npg:Subject ;
+    skos:definition "The :hasSubject property relates a publication to a subject term which describes one of the main topics the publication is about."@en ;
+    skos:prefLabel "Has Subject"@en .
+
 core:University a owl:Class ;
     rdfs:label "University"@en ;
     obo:IAO_0000112 "Definition taken from: http://en.wikipedia.org/wiki/University"^^xsd:string,
