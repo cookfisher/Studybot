@@ -1,7 +1,4 @@
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix aiiso: <http://purl.org/vocab/aiiso/schema#> .
 @prefix focu: <http://focu.io/schema#> .
 @prefix focudata: <http://focu.io/data#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -12,6 +9,9 @@
 @prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
 @prefix npg: <http://ns.nature.com/terms/> .
 @prefix teach: <http://linkedscience.org/teach/ns#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 focu:Lecture
   a rdfs:Class ;
@@ -180,13 +180,48 @@ focudata:Expert_system
 #teach:bookingNumber
 
 #Courses
-focudata:COMP474 
+focudata:COMP474
   a teach:Course ;
   teach:courseTitle "Intelligent Systems" ;
   vivo:subjectAreaOf COMP ;
   teach:bookingNumber "474"^^xsd:integer ;
   teach:courseDescription focudata:Knowledge_Graph ;
-  rdfs:seeAlso dbr:COMP474 ;
-  
-  
-    
+  rdfs:seeAlso <https://www.concordia.ca/academics/undergraduate/calendar/current/sec71/71-70.html> ;
+
+
+
+
+
+focu:CourseOutline a rdfs:Class ;
+    rdfs:label "Course Outline"@en ;
+    rdfs:comment "Course Outline"@en .
+
+focu:Lab a rdfs:Class ;
+    rdfs:label "Lab"@en ;
+    rdfs:comment "Lab Class"@en ;
+    rdfs:subClassOf teach:Lecture .
+
+focu:Reading a rdfs:Class ;
+    rdfs:label "Reading"@en ;
+    rdfs:comment "Reading"@en .
+
+focu:Slide a rdfs:Class ;
+    rdfs:label "Slide"@en ;
+    rdfs:comment "Slide"@en .
+
+focu:Subject a rdfs:Class ;
+    rdfs:label "Subject"@en ;
+    rdfs:comment "Subject Class"@en .
+
+focu:Topic a rdfs:Class ;
+    rdfs:label "Topic"@en ;
+    rdfs:comment "Topic Class"@en .
+
+focu:Tutorial a rdfs:Class ;
+    rdfs:label "Tutorial"@en ;
+    rdfs:comment "Tutorial Class"@en ;
+    rdfs:subClassOf teach:Lecture .
+
+focu:Worksheet a rdfs:Class ;
+    rdfs:label "Worksheet"@en ;
+    rdfs:comment "Worksheet"@en .
