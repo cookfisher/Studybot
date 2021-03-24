@@ -19,3 +19,6 @@ Task List:</br>
 - [ ] Report
 - [ ] Submission
 - [ ] Demo
+
+set own SPARAL Server
+Note:Default security, using shiro, limits access to localhost.  /$/** = localhostFilter <- change to 'anon'
