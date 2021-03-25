@@ -1,5 +1,5 @@
 # comp474_A1
-[Please Edit the Group Project Report](https://docs.google.com/document/d/1d4t94KdoBS3TrQ3HZaIDwzzpHRTnSOKdSHlpNWg3JWs/edit?usp=sharing)
+[Please Edit the Group Project Report](https://drive.google.com/file/d/1_MKvxYGSREXszE7DhnDA4s3-ilkLZyIE/view?usp=sharing)
 </br>
 </br>
 [Please Sign the Expectations-of-Originality Document](https://drive.google.com/file/d/1BMJr71YPzzKaWNK9HbWsQfyomaepXmi7/view?usp=sharing)
