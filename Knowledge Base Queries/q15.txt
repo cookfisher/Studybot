@@ -8,12 +8,8 @@ Prefix teach: <http://linkedscience.org/teach/ns#>
 Prefix vivo: <http://vivoweb.org/ontology/core#>
 Prefix xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT ?lecture ?lab ?lab_name ?content
+SELECT (COUNT(distinct ?lab) as ?count)
 WHERE
 {
-  ?lecture focu:offeredIn focudata:COMP474 .
-  ?lab focu:labAssociatedWith ?lecture.
-  ?lab aiiso:name ?lab_name.
-  ?lab focu:content ?content.  
-
+  ?lab a focu:Lab.
 }
