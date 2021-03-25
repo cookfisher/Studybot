@@ -1,0 +1,5 @@
+ "topic" , "topic_name" , "dbpedia_link" ,
+ "http://focu.io/data#Breadth-first_search" , "Breadth-first_search" , "http://dbpedia.org/resource/Breadth-first_search" ,
+ "http://focu.io/data#Depth-first_search" , "Depth-first_search" , "http://dbpedia.org/resource/Depth-first_search" ,
+ "http://focu.io/data#Knowledge_Graph" , "Knowledge Graph" , "http://dbpedia.org/resource/Knowledge_Graph" ,
+ "http://focu.io/data#Expert_system" , "Expert System" , "http://dbpedia.org/resource/Expert_system" ,
