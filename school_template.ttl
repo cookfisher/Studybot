@@ -52,7 +52,6 @@ focu:Worksheet
   rdfs:comment "Worksheet"@en .
 
 
-
 focu:content
   a rdf:Property ;
   rdfs:label "content"@en ;
@@ -79,14 +78,14 @@ focu:labAssociateWith
   rdfs:label "lab associated with a specific lecture"@en ;
   rdfs:comment "lab associated with a specific lecture"@en ;
   rdfs:domain focu:Lab ;
-  rdfs:range focu:Lecture .
+  rdfs:range teach:Lecture .
 
 focu:tutorialAssociateWith
   a rdf:Property ;
   rdfs:label "tutorial associated with a specific lecture"@en ;
   rdfs:comment "tutorial associated with a specific lecture"@en ;
   rdfs:domain focu:Tutorial ;
-  rdfs:range focu:Lecture .
+  rdfs:range teach:Lecture .
 
 focu:offeredAt
   a rdf:Property ;
@@ -99,7 +98,7 @@ focu:offeredIn
   a rdf:Property ;
   rdfs:label "lecture in"@en ;
   rdfs:comment "a lecture is in a course."@en ;
-  rdfs:domain focu:Lecture ;
+  rdfs:domain teach:Lecture ;
   rdfs:range teach:Course .
 
 focu:topicAssociateWith
@@ -107,156 +106,6 @@ focu:topicAssociateWith
   rdfs:label "topics"@en ;
   rdfs:comment "topics that are covered in a course or a lecture in a course."@en ;
   rdfs:domain focu:Topic ;
-  rdfs:range focu:Lecture, teach:Course .
+  rdfs:range teach:Lecture, teach:Course .
 
-
-
-focudata:Concordia_University
-  a vivo:University ;
-  aiiso:name "Concordia University" ;
-  rdfs:seeAlso dbr:Concordia_University .
-
-focudata:COMP472
-  a teach:Course ;
-  focu:offeredAt focudata:Concordia_University ;
-  focu:subject focudata:COMP ;
-  teach:courseDescription """Scope of AI. First-order logic. Automated reasoning. Search and heuristic search. Game-playing. Planning. Knowledge representation. Probabilistic reasoning. Introduction to machine learning. Introduction to natural language processing. Project. Lectures: three hours per week. Laboratory: two hours per week.
-Prerequisite: COMP 352 or COEN 352.""" ;
-  teach:courseTitle "Artificial Intelligence" ;
-  aiiso:code 472 ;
-  vivo:courseCredits 4.0 .
-
-focudata:COMP474
-  a teach:Course ;
-  focu:offeredAt focudata:Concordia_University ;
-  focu:outline <file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/course_outline_comp474_6741_w2021.pdf> ;
-  focu:subject focudata:COMP ;
-  teach:courseDescription """Rule-based expert systems, blackboard architecture, and agent-based. Knowledge acquisition and representation. Uncertainty and conflict resolution. Reasoning and explanation. Design of intelligent systems. Project. Lectures: three hours per week. Laboratory: two hours per week.
-Prerequisite: COMP 352 or COEN 352.""" ;
-  teach:courseTitle "Intelligent Systems" ;
-  aiiso:code 474 ;
-  vivo:courseCredits 4.0 .
-
-focudata:COMP472_lecture1
-  a teach:Lecture ;
-  focu:content <file:///C:/Users/YZ/Desktop/COMP474/project/COMP472/Lectures/intro-Winter2020.pdf>,
-              <file:///C:/Users/YZ/Desktop/COMP474/project/COMP472/Lectures/search-Winter2020.pdf> ;
-  focu:offeredIn focudata:COMP472 ;
-  aiiso:code 1 ;
-  aiiso:name "Artificial Intelligence: Introduction" .
-
-focudata:COMP474_lecture1
-  a teach:Lecture ;
-  focu:content <file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/Lectures/slides01.pdf>,
-              <https://www.youtube.com/watch?v=P18EdAKuC1U> ;
-  focu:offeredIn focudata:COMP474 ;
-  aiiso:code 1 ;
-  aiiso:name "Introduction to Intelligent Systems" .
-
-focudata:COMP474_lecture2
-  a teach:Lecture ;
-  focu:content <file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/Lectures/py_tut.pdf>,
-              <file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/Lectures/slides02.pdf>,
-              <file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/Lectures/worksheet01.pdf> ;
-  focu:offeredIn focudata:COMP474 ;
-  aiiso:code 2 ;
-  aiiso:name "Knowledge Graphs" .
-
-focudata:COMP472_lecture2
-  a teach:Lecture ;
-  focu:offeredIn focudata:COMP472 ;
-  aiiso:code 2 ;
-  aiiso:name "Artificial Intelligence: State Space Search" .
-
-focudata:COMP472_lab1
-  a focu:Lab ;
-  focu:content <file:///C:/Users/YZ/Desktop/COMP474/project/COMP472/Lectures/COMP_472_Lab1.pdf> ;
-  focu:labAssociatedWith focudata:COMP472_lecture1 ;
-  aiiso:code 1 ;
-  aiiso:name "COMP472_Lab_1" .
-
-focudata:COMP472_lab2
-  a focu:Lab ;
-  focu:content <file:///C:/Users/YZ/Desktop/COMP474/project/COMP472/Lectures/COMP_472_Lab2.pdf> ;
-  focu:labAssociatedWith focudata:COMP472_lecture2 ;
-  aiiso:code 2 ;
-  aiiso:name "COMP472_Lab_2" ;
-  rdfs:seeAlso <https://rdflib.readthedocs.io/en/stable/index.html> .
-
-focudata:COMP474_lab1
-  a focu:Lab ;
-  focu:content <https://moodle.concordia.ca/moodle/mod/page/view.php?id=2608092> ;
-  focu:labAssociatedWith focudata:COMP474_lecture1 ;
-  aiiso:code 1 ;
-  aiiso:name "COMP474_Lab_1" .
-
-focudata:COMP474_lab2
-  a focu:Lab ;
-  focu:content <https://moodle.concordia.ca/moodle/mod/page/view.php?id=2575768> ;
-  focu:labAssociatedWith focudata:COMP474_lecture2 ;
-  aiiso:code 2 ;
-  aiiso:name "COMP474_Lab_2" ;
-  rdfs:seeAlso <https://rdflib.readthedocs.io/en/stable/index.html> .
-
-focudata:Depth-first_search
-  a focu:Topic ;
-  focu:topicAssociateWith focudata:COMP472, focudata:COMP472_lecture2 ;
-  aiiso:name "Depth-first_search" ;
-  rdfs:seeAlso dbr:Depth-first_search .
-
-focudata:Breadth-first_search
-  a focu:Topic ;
-  focu:topicAssociateWith focudata:COMP472, focudata:COMP472_lecture2 ;
-  aiiso:name "Breadth-first_search" ;
-  rdfs:seeAlso dbr:Breadth-first_search .
-
-focudata:Expert_system
-  a focu:Topic ;
-  focu:topicAssociateWith focudata:COMP474 ;
-  aiiso:name "Expert System" ;
-  rdfs:seeAlso dbr:Expert_system .
-
-focudata:Knowledge_Graph
-  a focu:Topic ;
-  focu:topicAssociateWith focudata:COMP474, focudata:COMP474_lecture2 ;
-  aiiso:name "Knowledge Graph" ;
-  rdfs:seeAlso dbr:Knowledge_Graph .
-
-<file:///C:/Users/YZ/Desktop/COMP474/project/COMP472/Lectures/COMP_472_Lab1.pdf>
-  a focu:Slide .
-
-<file:///C:/Users/YZ/Desktop/COMP474/project/COMP472/Lectures/COMP_472_Lab2.pdf>
-  a focu:Slide .
-
-<file:///C:/Users/YZ/Desktop/COMP474/project/COMP472/Lectures/intro-Winter2020.pdf>
-  a focu:Slide .
-
-<file:///C:/Users/YZ/Desktop/COMP474/project/COMP472/Lectures/search-Winter2020.pdf>
-  a focu:Slide .
-
-<file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/Lectures/py_tut.pdf>
-  a focu:Reading .
-
-<file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/Lectures/slides01.pdf>
-  a focu:Slide .
-
-<file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/Lectures/slides02.pdf>
-  a focu:Slide .
-
-<file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/Lectures/worksheet01.pdf>
-  a focu:Worksheet .
-
-<file:///C:/Users/YZ/Desktop/COMP474/project/COMP474/course_outline_comp474_6741_w2021.pdf>
-  a focu:CourseOutline .
-
-<https://www.youtube.com/watch?v=P18EdAKuC1U>
-  a vivo:Video .
-
-focudata:COMP
-  a focu:Subject ;
-  aiiso:name "COMP".
-
-focudata:SOEN
-  a focu:Subject ;
-  aiiso:name "SOEN".
 
