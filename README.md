@@ -20,5 +20,5 @@ Task List:</br>
 - [x] Submission
 - [ ] Demo
 
-set own SPARAL Server
+set own SPARQL Server
 Note:Default security, using shiro, limits access to localhost.  /$/** = localhostFilter <- change to 'anon'
