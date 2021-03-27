@@ -1,0 +1,20 @@
+Prefix aiiso: <http://purl.org/vocab/aiiso/schema#>
+Prefix dbr: <http://dbpedia.org/resource/>
+Prefix focu: <http://focu.io/schema#>
+Prefix focudata: <http://focu.io/data#>
+Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+Prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+Prefix teach: <http://linkedscience.org/teach/ns#>
+Prefix vivo: <http://vivoweb.org/ontology/core#>
+Prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?lab ?name ?content 
+WHERE
+{
+  ?lecture focu:offeredIn focudata:COMP474 .
+  ?lab focu:labAssociatedWith ?lecture.
+  ?lab aiiso:name ?name.
+  ?lab aiiso:code ?lab_code.
+  ?lab focu:content ?content.
+}
+ORDER BY ?lab_code

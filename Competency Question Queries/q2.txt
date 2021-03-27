@@ -1,0 +1,22 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
+Prefix aiiso: <http://purl.org/vocab/aiiso/schema#>
+Prefix dbr: <http://dbpedia.org/resource/>
+Prefix focu: <http://focu.io/schema#>
+Prefix focudata: <http://focu.io/data#>
+Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+Prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+Prefix teach: <http://linkedscience.org/teach/ns#>
+Prefix vivo: <http://vivoweb.org/ontology/core#>
+Prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?course_title ?lecture_name
+WHERE
+{
+  focudata:COMP474 teach:courseTitle ?course_title.
+  ?lecture focu:offeredIn focudata:COMP474.
+  ?lecture aiiso:name ?lecture_name.
+  ?lecture aiiso:code ?lecture_code.
+}
+ORDER BY ?lecture_code
+
+
