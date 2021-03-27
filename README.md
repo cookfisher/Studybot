@@ -6,18 +6,18 @@
 </br>
 </br>
 Task List:</br>
-- [ ] Competency Questions
-- [ ] Vocabulary
-- [ ] Knowledge Base Construction
-- [ ] Queries
-- [ ] Deliverables
-- [ ] RDF Schema
-- [ ] Dataset
-- [ ] KB Construction
-- [ ] Knowledge Base
-- [ ] Queries and their result
-- [ ] Report
-- [ ] Submission
+- [x] Competency Questions
+- [x] Vocabulary
+- [x] Knowledge Base Construction
+- [x] Queries
+- [x] Deliverables
+- [x] RDF Schema
+- [x] Dataset
+- [x] KB Construction
+- [x] Knowledge Base
+- [x] Queries and their result
+- [x] Report
+- [x] Submission
 - [ ] Demo
 
 set own SPARAL Server
