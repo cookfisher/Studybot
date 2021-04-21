@@ -6,11 +6,12 @@
 
 
 # This is a simple example for a custom action which utters "Hello World!"
-
+import requests
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+
 
 
 class ActionHelloWorld(Action):
@@ -45,11 +46,38 @@ class ActionCourse(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        #dispatcher.utter_message(text=f"If you are asking about {tracker.slots['person']}, Best Human Ever!!! ;-) ")
-        dispatcher.utter_message(text=f"If you are asking about {tracker.slots['course']}, (COMP 474): Prerequisite: COMP 352 or COEN 352. Rule-based expert systems, "
-                                      f"blackboard architecture, and agent-based. Knowledge acquisition and representation. Uncertainty and conflict resolution."
-                                      f" Reasoning and explanat!!! ;-) ")
+        # request server
 
+        query_var = """
+                Prefix dbr: <http://dbpedia.org/resource/>
+                Prefix focu: <http://focu.io/schema#>
+                Prefix focudata: <http://focu.io/data#>
+                Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                Prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                Prefix teach: <http://linkedscience.org/teach/ns#>
+                Prefix vivo: <http://vivoweb.org/ontology/core#>
+                Prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+
+                SELECT (COUNT(distinct ?course) as ?count)
+                WHERE
+                {
+                    ?course a teach:Course.
+                }
+            """
+
+        response = requests.post('http://localhost:3030/focu/query', data={'query': query_var})
+        res = response.json()
+        print('res is',res)
+        res_1= res['results']['bindings']
+        print('res after removing binding')
+        ans = []
+
+        print(res['results']['bindings'])
+        dispatcher.utter_message(text=f"If you are asking about {tracker.slots['course']}, {res_1}")
+        #dispatcher.utter_message(text=f"If you are asking about {tracker.slots['person']}, Best Human Ever!!! ;-) ")
+        # dispatcher.utter_message(text=f"If you are asking about {tracker.slots['course']}, (COMP 474): Prerequisite: COMP 352 or COEN 352. Rule-based expert systems, "
+        #                               f"blackboard architecture, and agent-based. Knowledge acquisition and representation. Uncertainty and conflict resolution."
+        #                               f" Reasoning and explanat!!! ;-) ")
 
         return []
 
