@@ -152,10 +152,11 @@ def add_topics(text, course_name, lec):
 
 
 def add_topics_file(file_name, course_name, lec):
+    print(file_name)
     pdf = pdfplumber.open(file_name)
     for i in range(len(pdf.pages)):
         page = pdf.pages[i]
-        text = page.extract_text().strip()
+        text = page.extract_text()
         add_topics(text, course_name, lec)
     pdf.close()
 
@@ -284,7 +285,12 @@ for index, row in table_merged.iterrows():
     if row['Course ID'] not in course_ids:
         course_ids.append(row['Course ID'])
         course_generator(row['Subject'], row['Catalog'], row['Long Title'], row['Class Units'], row['Descr'])
-        add_topics(row['Descr'], row['Subject']+row['Catalog'], None)
+        if not ('Please see GRAD Calendar' in str(row['Descr'])
+                or 'Please see UGRD Calendar' in str(row['Descr'])
+                or 'Please see Graduate Calendar' in str(row['Descr'])
+                or 'Please see Undergraduate Calendar' in str(row['Descr'])
+                or 'nan' == str(row['Descr'])):
+            add_topics(row['Descr'], row['Subject']+row['Catalog'], None)
 
 for item in subjects:
     subject_generator(item)
@@ -327,5 +333,5 @@ g.add((FCD['COMP474_lecture12'], AIISO['name'], Literal('Deep Learning for Intel
 
 
 g.serialize(format='nt', destination="school.nt")
-# g.serialize(format='ttl', destination="school.ttl")
+g.serialize(format='ttl', destination="school.ttl")
 
