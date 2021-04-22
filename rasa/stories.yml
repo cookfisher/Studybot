@@ -1,0 +1,109 @@
+version: "2.0"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+- story: get person info
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: about_person
+    - action: action_person_info
+
+- story: get course info
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: about_course
+    - action: action_course_info
+
+- story: get course topic
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: about_course_topic
+    - action: action_course_topic
+
+- story: get course event
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: about_course_event
+    - action: action_course_event
+
+- story: answer query 1
+  steps:
+    - intent: q_1
+    - action: query_1
+
+- story: answer query 2
+  steps:
+    - intent: q_2
+    - action: query_2
+
+- story: answer query 3
+  steps:
+    - intent: q_3
+    - action: query_3
+    
+- story: answer query 4
+  steps:
+    - intent: q_4
+    - action: query_4
+    
+- story: answer query 5
+  steps:
+    - intent: q_5
+    - action: query_5
+    
+- story: answer query 6
+  steps:
+    - intent: q_6
+    - action: query_6
+    
+- story: answer query 7
+  steps:
+    - intent: q_7
+    - action: query_7
+    
+- story: answer query 8
+  steps:
+    - intent: q_8
+    - action: query_8
+    
+- story: answer query 9
+  steps:
+    - intent: q_9
+    - action: query_9
+    
+- story: answer query 10
+  steps:
+    - intent: q_10
+    - action: query_10
+    
