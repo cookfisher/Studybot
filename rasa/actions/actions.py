@@ -36,9 +36,9 @@ class ActionHelloWorld(Action):
         #                               f"blackboard architecture, and agent-based. Knowledge acquisition and representation. Uncertainty and conflict resolution."
         #                               f" Reasoning and explanat!!! ;-) ")
 
-
         return []
 
+# question : course description
 class ActionCourse(Action):
     # require  the course description
     def name(self) -> Text:
@@ -50,10 +50,8 @@ class ActionCourse(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         print('course is ', tracker.slots['course'])
         chosen_course = tracker.slots['course']
-        print('this is test{var}'.format(var=15))
 
         # request server
-
         q1 = """
                 Prefix dbr: <http://dbpedia.org/resource/>
                 Prefix focu: <http://focu.io/schema#>
@@ -71,68 +69,101 @@ class ActionCourse(Action):
             """
         query_var = q1 + chosen_course + ' ' + q2
 
-        #
-        # if '472' in chosen_course:
-        #     query_var = query_472
-        # if '474' in chosen_course:
-        #     query_var = query_474
-
         json_return = query(query_var)
         result = []
         for item in json_return:
             result.append(item['description']['value'])
-        dispatcher.utter_message(text=f"If you are asking about {tracker.slots['course']}{tracker.slots['course_number']}, {result}")
-
-
-        # response = requests.post('http://localhost:3030/focu/query', data={'query': query_var})
-        # res = response.json()
-        # res_1= res['results']['bindings']
-        # # format the json
-        #
-        # print(res['results']['bindings'])
-        # dispatcher.utter_message(text=f"If you are asking about {tracker.slots['course']}{tracker.slots['course_number']}, {result}")
-        #dispatcher.utter_message(text=f"If you are asking about {tracker.slots['person']}, Best Human Ever!!! ;-) ")
-        # dispatcher.utter_message(text=f"If you are asking about {tracker.slots['course']}, (COMP 474): Prerequisite: COMP 352 or COEN 352. Rule-based expert systems, "
-        #                               f"blackboard architecture, and agent-based. Knowledge acquisition and representation. Uncertainty and conflict resolution."
-        #                               f" Reasoning and explanat!!! ;-) ")
+        dispatcher.utter_message(text=f"If you are asking about {tracker.slots['course']}, the results are as follows:{result}")
 
         return []
 
+# question . which courses cover this topic
 class ActionCourseTopic(Action):
 
     def name(self) -> Text:
         return "action_course_topic"
 
-        #return "action_person_info"
-
-
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        print('the slots name is',tracker.slots['topic'])
+        chosen_topic = tracker.slots['topic']
+        print('the slots name is', tracker.slots['topic'])
 
-        #dispatcher.utter_message(text=f"If you are asking about {tracker.slots['person']}, Best Human Ever!!! ;-) ")
-        dispatcher.utter_message(text=f"If you are asking about {tracker.slots['topic']}, the following courses based on frequencies of the topic are follows: COMP474, COMP472")
+        query_var = """
+
+            Prefix aiiso: <http://purl.org/vocab/aiiso/schema#>
+            Prefix dbr: <http://dbpedia.org/resource/>
+            Prefix focu: <http://focu.io/schema#>
+            Prefix focudata: <http://focu.io/data#>
+            Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            Prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            Prefix teach: <http://linkedscience.org/teach/ns#>
+            Prefix vivo: <http://vivoweb.org/ontology/core#>
+            Prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+
+            SELECT ?course
+            WHERE
+            {{
+              focudata:{t} focu:topicAssociateWith ?course. 
+            }}
+
+        """.format(t=chosen_topic)
+
+        json_return = query(query_var)
+        result = []
+        for item in json_return:
+            result.append(item['course']['value'])
+
+        # dispatcher.utter_message(text=f"If you are asking about {tracker.slots['person']}, Best Human Ever!!! ;-) ")
+        dispatcher.utter_message(text=f"If you are asking about {chosen_topic}, the courses are as follows: ,{result}")
 
         return []
-
+#question  , what topics are covered in lab
 class ActionCourseEvent(Action):
 
     def name(self) -> Text:
         return "action_course_event"
 
-        #return "action_person_info"
-
-
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        chosen_type = tracker.slots['event']
+        chosen_course = tracker.slots['course']
+        print(chosen_course)
+        print('chosen type',chosen_type)
+        chosen_event = chosen_course+'_'+chosen_type
+        print('the event name is',chosen_event)
 
-        #dispatcher.utter_message(text=f"If you are asking about {tracker.slots['person']}, Best Human Ever!!! ;-) ")
-        dispatcher.utter_message(text=f"If you are asking about {tracker.slots['event']}, the event includes all topices, such as rdf format, open data link...) ")
+        query_var = """
+
+            Prefix aiiso: <http://purl.org/vocab/aiiso/schema#>
+            Prefix dbr: <http://dbpedia.org/resource/>
+            Prefix focu: <http://focu.io/schema#>
+            Prefix focudata: <http://focu.io/data#>
+            Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            Prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            Prefix teach: <http://linkedscience.org/teach/ns#>
+            Prefix vivo: <http://vivoweb.org/ontology/core#>
+            Prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+
+            SELECT ?course
+            WHERE
+            {{
+              focudata:{t} focu:topicAssociateWith ?course.
+            }}
+
+        """.format(t=chosen_event)
+
+        json_return = query(query_var)
+        result = []
+        for item in json_return:
+            result.append(item['topic']['value'])
+        #
+        # #dispatcher.utter_message(text=f"If you are asking about {tracker.slots['person']}, Best Human Ever!!! ;-) ")
+        dispatcher.utter_message(text=f"If you are asking about {chosen_event}, the event includes all topics, such as{result} ")
 
         return []
-        
+
 #copy paste below content
 class Query1(Action):
     def name(self) -> Text:

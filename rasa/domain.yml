@@ -10,6 +10,8 @@ intents:
   - bot_challenge
   - about_person
   - about_course
+  - about_course_topic
+  - about_course_topic
   - action_course_topic
   - action_course_event
   - q_1
