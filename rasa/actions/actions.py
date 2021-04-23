@@ -16,10 +16,10 @@ from rasa_sdk.executor import CollectingDispatcher
 def query(pass_query):
     # request server
     query_var = pass_query
-    response = requests.post('http://localhost:3030/focu/query', data={'query': query_var})
+    response = requests.post('http://localhost:3030/focu/sparql', data={'query': query_var})
     res = response.json()
     res_1 = res['results']['bindings']
-    print(res['results']['bindings'])
+    # print(res['results']['bindings'])
     return res_1
 
 class ActionHelloWorld(Action):
