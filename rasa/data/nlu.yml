@@ -94,33 +94,68 @@ nlu:
 - intent: about_person
   examples: |
     - Who is he?
-    - Who is [Joe](person)?
+    - Who is [Joe](person) ?
     - Who is [Kate](person)?
-    - tell me about him
-    - tell me about
-    - tell me about [peter](person)
-    - do you know [joe](person)?
+    - Who is [_oov_](person)?
+    - Who is [Harry](person)
+    - Tell me about him
+    - Tell me about
+    - Tell me about [Peter](person)
+    - Tell me about [Joe](person)
+    - Can you tell me about him?
+    - Can you tell me about [Jane](person)?
+    - Can you tell me about [Peter](person) ?
+    - Can you tell me about [Jonathan](person) ?
+    - Do you know [Alice](person) ?
+    - Tell me about [Jack](person) ?
 
-- intent: about_course
+- intent: q_1
   examples: |
-    - What is [COMP474](course) about?
-    - What is [COMP472](course) about?
-    - tell me about it
-    - tell me about
-    - tell me about [COMP472](course)
-    - tell me about [COMP474](course)
+    - List all courses' subject
+    - All courses' subject
+    - All courses subjects
 
-- intent: about_course_topic
+- intent: q_2
   examples: |
-    - Which courses cover [Expert Systems](topic)?
-    - Which courses cover
-    - tell me about it
-    - tell me about
+    - List all lecture info in Comp474
+    - all lecture in [COMP474](course)
 
-
-- intent: about_course_event
+- intent: q_3
   examples: |
-    - Which topics are covered in [Lab#2](event) of [COMP474](course)?
-    - Which topics are covered in [Lab#2](event)
-    - tell me about it
-    - tell me about
+    - What is the [COMP472](course) topics?
+    - What is topic of [COMP472](course)?
+    - topic of comp472?
+
+- intent: q_4
+  examples: |
+    - List all course in 'COMP'
+    - find all COMP course
+
+- intent: q_5
+  examples: |
+    - find all content in [COMP474](course)
+    - find all content in COMP474
+
+- intent: q_6
+  examples: |
+    - [COMP472](course) course description
+    - What is course description of COMP472?
+
+- intent: q_7
+  examples: |
+    - find all lectures
+
+- intent: q_8
+  examples: |
+    - find all COMP474 lab info
+    - List all lab info in COMP474
+
+- intent: q_9
+  examples: |
+    - COMP474 outline
+    - What is outline of COMP474
+    - find outline of COMP474
+
+- intent: q_10
+  examples: |
+    - List all topics links
