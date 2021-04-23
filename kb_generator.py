@@ -114,6 +114,11 @@ g.add((topicAssociat, RDFS.comment, Literal('topics that are covered in a course
 g.add((topicAssociat, RDFS.domain, FC['Topic']))
 g.add((topicAssociat, RDFS.range, TEACH['Lecture']))
 g.add((topicAssociat, RDFS.range, TEACH['Course']))
+g.add((topicAssociat, RDFS.range, FC['Slide']))
+g.add((topicAssociat, RDFS.range, FC['Worksheet']))
+g.add((topicAssociat, RDFS.range, FC['Reading']))
+g.add((topicAssociat, RDFS.range, FC['Lab']))
+g.add((topicAssociat, RDFS.range, FC['Tutorial']))
 
 offeredAt = FC['offeredAt']
 g.add((offeredAt, RDF.type, RDF.Property))
@@ -130,7 +135,8 @@ g.add((offeredIn, RDFS.domain, TEACH['Lecture']))
 g.add((offeredIn, RDFS.range, TEACH['Course']))
 
 
-def add_topics(text, course_name, lec):
+def add_topics(text, course_name, lec, slide):
+    # print(text)
     spot_light_url = f'https://api.dbpedia-spotlight.org/en/annotate?text={text}'
     headers = {'accept': 'application/json'}
     if requests.get(url=spot_light_url, headers=headers).status_code == 200:
@@ -144,20 +150,23 @@ def add_topics(text, course_name, lec):
 
                 topic = FCD[dbr_name]
                 g.add((topic, RDF.type, FC['Topic']))
+                g.add((topic, RDFS.label, Literal(dbr_name, lang='en')))
                 g.add((topic, AIISO['name'], Literal(dbr_name)))
                 g.add((topic, FC['topicAssociateWith'], FCD[course_name]))
                 if lec is not None:
                     g.add((topic, FC['topicAssociateWith'], lec))
+                if slide is not None:
+                    g.add((topic, FC['topicAssociateWith'], slide))
                 g.add((topic, RDFS.seeAlso, DBR[dbr_name]))
 
 
-def add_topics_file(file_name, course_name, lec):
+def add_topics_file(file_name, course_name, lec, slide):
     print(file_name)
     pdf = pdfplumber.open(file_name)
     for i in range(len(pdf.pages)):
         page = pdf.pages[i]
         text = page.extract_text()
-        add_topics(text, course_name, lec)
+        add_topics(text, course_name, lec, slide)
     pdf.close()
 
 
@@ -190,7 +199,7 @@ def add_lectures(course_name):
         g.add((lec, FC['content'], slide))
         g.add((lec, FC['offeredIn'], FCD[course_name]))
 
-        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, lec)
+        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, lec, slide)
 
 
 def add_labs(course_name):
@@ -209,7 +218,7 @@ def add_labs(course_name):
         g.add((lab, FC['labAssociatedWith'], FCD[course_name + '_lecture' + str(i + 1)]))
         # g.add((lab2, RDFS.seeAlso, URIRef('https://rdflib.readthedocs.io/en/stable/index.html')))
 
-        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, lab)
+        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, lab, slide)
 
 
 def add_worksheets(course_name):
@@ -223,7 +232,7 @@ def add_worksheets(course_name):
         lec = FCD[course_name + '_lecture' + str(i + 2)]
         g.add((lec, FC['content'], worksheet))
 
-        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, lec)
+        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, lec, worksheet)
 
 
 def add_course_outline(course_name):
@@ -236,7 +245,7 @@ def add_course_outline(course_name):
 
         g.add((FCD[course_name], FC['outline'], outline))
 
-        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, None)
+        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, None, None)
 
 
 def add_readings(course_name):
@@ -249,7 +258,7 @@ def add_readings(course_name):
         lec = FCD[course_name + '_lecture' + str(int(file_names[i][3:5]))]
         g.add((lec, FC['content'], reading))
 
-        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, lec)
+        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, lec, reading)
 
 
 def subject_generator(subject_name):
@@ -290,7 +299,7 @@ for index, row in table_merged.iterrows():
                 or 'Please see Graduate Calendar' in str(row['Descr'])
                 or 'Please see Undergraduate Calendar' in str(row['Descr'])
                 or 'nan' == str(row['Descr'])):
-            add_topics(row['Descr'], row['Subject']+row['Catalog'], None)
+            add_topics(row['Descr'], row['Subject']+row['Catalog'], None, None)
 
 for item in subjects:
     subject_generator(item)
