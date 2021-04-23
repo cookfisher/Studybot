@@ -1,0 +1,100 @@
+1
+Prefix aiiso: <http://purl.org/vocab/aiiso/schema#> 
+Prefix dbr: <http://dbpedia.org/resource/> 
+Prefix focu: <http://focu.io/schema#> 
+Prefix focudata: <http://focu.io/data#> 
+Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+Prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+Prefix teach: <http://linkedscience.org/teach/ns#> 
+prefix vivo: <http://vivoweb.org/ontology/core#> 
+prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+SELECT distinct *
+WHERE {
+  {
+    SELECT ?course ?topic ?lable ?dbr_link ?slide ?lab ?lecture ?course
+	WHERE 
+  	{
+      ?topic a focu:Topic.
+      ?topic focu:topicAssociateWith focudata:COMP472 . 
+      ?topic rdfs:lable ?lable .
+      FILTER (lang(?label) = 'en')
+    }
+  }
+UNION
+  {
+    SELECT ?course ?topic ?lable ?dbr_link ?slide ?lab ?lecture ?course
+	WHERE 
+    {
+      ?topic a focu:Topic.
+      ?topic focu:topicAssociateWith ?slide . 
+      ?lecture focu:content ?slide .
+      ?lecture focu:offeredIn focudata:COMP472 .
+      ?topic rdfs:lable ?lable .
+      FILTER (lang(?label) = 'en')
+  	}
+  }
+UNION
+  {
+    SELECT ?course ?topic ?lable ?dbr_link ?slide ?lab ?lecture ?course
+	WHERE 
+    {
+      ?topic a focu:Topic.
+      ?topic focu:topicAssociateWith ?slide . 
+      ?lab focu:content ?slide .
+      ?lab focu:labAssociatedWith ?lecture .
+      ?lecture focu:offeredIn focudata:COMP472 .
+      ?topic rdfs:lable ?lable .
+      FILTER (lang(?label) = 'en')
+    }
+  }
+}
+
+
+
+2
+Prefix aiiso: <http://purl.org/vocab/aiiso/schema#> 
+Prefix dbr: <http://dbpedia.org/resource/> 
+Prefix focu: <http://focu.io/schema#> 
+Prefix focudata: <http://focu.io/data#> 
+Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+Prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+Prefix teach: <http://linkedscience.org/teach/ns#> 
+prefix vivo: <http://vivoweb.org/ontology/core#> 
+prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+
+SELECT ?course (count(?course) as ?count)
+WHERE {
+  ?topic a focu:Topic.
+  ?topic focu:topicAssociateWith ?course . 
+  ?topic rdfs:seeAlso dbr:DBpedia .
+  
+}
+group by ?course
+order by ?count
+
+
+
+3
+Prefix aiiso: <http://purl.org/vocab/aiiso/schema#> 
+Prefix dbr: <http://dbpedia.org/resource/> 
+Prefix focu: <http://focu.io/schema#> 
+Prefix focudata: <http://focu.io/data#> 
+Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+Prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+Prefix teach: <http://linkedscience.org/teach/ns#> 
+prefix vivo: <http://vivoweb.org/ontology/core#> 
+prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+
+SELECT ?topic ?slide ?lab ?lecture ?course
+WHERE {
+  ?topic a focu:Topic.
+  ?topic focu:topicAssociateWith ?slide . 
+  ?lab focu:content ?slide .
+  ?lab focu:labAssociatedWith ?lecture .
+  ?lecture focu:offeredIn ?course .
+  ?topic rdfs:seeAlso dbr:AIML .
+  
+}
