@@ -94,38 +94,166 @@ nlu:
 - intent: about_person
   examples: |
     - Who is he?
-    - Who is [Joe](person)?
+    - Who is [Joe](person) ?
     - Who is [Kate](person)?
-    - tell me about him
-    - tell me about
-    - tell me about [peter](person)
-    - do you know [joe](person)?
+    - Who is [_oov_](person)?
+    - Who is [Harry](person)
+    - Tell me about him
+    - Tell me about
+    - Tell me about [Peter](person)
+    - Tell me about [Joe](person)
+    - Can you tell me about him?
+    - Can you tell me about [Jane](person)?
+    - Can you tell me about [Peter](person) ?
+    - Can you tell me about [Jonathan](person) ?
+    - Do you know [Alice](person) ?
+    - Tell me about [Jack](person) ?
 
 - intent: about_course
   examples: |
-    - What is [COMP474](course) about?
-    - What is [COMP472](course) about?
-    - tell me about it
-    - tell me about [COMP472](course)
-    - tell me about [COMP474](course)
+    - What is description of [COMP471](course) about?
+    - What is description of [COMP472](course) about?
+    - What is description of [COMP473](course) about?
+    - What is description of [COMP474](course) about?
+    - What is description of [COMP475](course) about?
+    - What is description of [COMP476](course) about?
+    - What is description of [COMP479](course) about?
+    - What is description of [COMP445](course) about?
+    - What is description of [] about?
+    - What is descripiton of [_ovo_](course) about?
+    - tell me about its description
+    - tell me about description
+    - tell me about description of [COMP472](course)
+    - tell me about description of [COMP474](course)
+
+- intent: about_course_event
+  examples: |
+    - Which topics are covered in [lab1](event) of [COMP474](course)?
+    - Which topics are covered in [lab2](event) of [COMP474](course)?
+    - Which events are covered in [lab3](event) of [COMP474](course)?
+    - Which events are covered in [lab4](event) of [COMP474](course)?
+    - Which events are covered in [lab5](event) of [COMP474](course)?
+    - Which events are covered in [lab6](event) of [COMP474](course)?
+    - Which events are covered in [lab7](event) of [COMP474](course)?
+    - Which events are covered in [lab8](event) of [COMP474](course)?
+    - Which events are covered in [lab9](event) of [COMP474](course)?
+    - Which events are covered in [lab10](event) of [COMP474](course)?
+    - Which events are covered in [lab11](event) of [COMP474](course)?
+    - Which events are covered in [lab12](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#1](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#2](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#3](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#4](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#5](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#6](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#7](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#8](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#9](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#10](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#11](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#12](event) of [COMP474](course)?
+    - Which events are covered in [Lecture#1](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#2](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#3](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#4](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#5](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#6](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#7](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#8](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#9](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#10](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#11](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#12](event) of [COMP474](course)?
+    - Which events are covered in [Lab#2](event)
+    - event please tell me about it
+    - event tell me about
 
 - intent: about_course_topic
   examples: |
     - Which courses cover [Expert Systems](topic)?
-    - Which courses cover
-    - tell me about it
-    - tell me about
-
-
-- intent: about_course_event
-  examples: |
-    - Which topics are covered in [Lab#2](event) of [COMP474](course)?
-    - Which topics are covered in [Lab#2](event)
-    - tell me about it
-    - tell me about
+    - Which courses cover [Expert_system](topic)?
+    - Which courses cover [Extrusion](topic)?
+    - Which courses cover [Eye_movement](topic)?
+    - Which courses cover [Instagram](topic)?
+    - Which courses cover [Instant_film](topic)?
+    - Which courses cover [Insurance](topic)?
+    - Which courses cover [Integer](topic)?
+    - Which courses cover [Integral](topic)?
+    - Which courses cover [Intelligence](topic)?
+    - Which courses  cover
+    - topic please tell me about it
+    - topic tell me about topic
 
 - intent: q_1
   examples: |
-    - List all courses' subject
-    - All courses' subject
-    - All courses subjects
+    - How many courses in each subject?
+    - List each subject with courses
+    - All subjects with courses
+    - All subjects courses
+
+- intent: q_2
+  examples: |
+    - Which lectures does course COMP474 have?
+    - List all lecture in Comp474
+    - all lecture in [COMP474](course)
+
+- intent: q_3
+  examples: |
+    - Which topics are associated with course COMP472?
+    - topic in COMP472
+    - What is the [COMP472](course) topics?
+    - What is topic of [COMP472](course)?
+    - topic of comp472?
+
+- intent: q_4
+  examples: |
+    - Which courses have the subject COMP?
+    - List all course in 'COMP'
+    - find all COMP course
+    - all COMP course
+
+- intent: q_5
+  examples: |
+    - What’s the content of the lectures of COMP474?
+    - COMP474 lecture content
+    - content lecture COMP474
+    - find all content in [COMP474](course)
+    - find all content in COMP474
+
+- intent: q_6
+  examples: |
+    - What’s the course description of COMP472?
+    - COMP474 course description
+    - course description COMP474
+    - [COMP472](course) course description
+    - What is course description of COMP472?
+
+- intent: q_7
+  examples: |
+    - In which lectures is the subject “Knowledge Graph” covered?
+    - find all lectures have "Knowledge Graph"
+    - lecture with subject "Knowledge Graph"
+
+- intent: q_8
+  examples: |
+    - What’s the lab content for labs in COMP474?
+    - find all COMP474 lab info
+    - List all lab info in COMP474
+    - lab content COMP474
+    - COMP474 leb content
+    - lab info COMP474
+
+- intent: q_9
+  examples: |
+    - What’s the course outline of COMP474?
+    - COMP474 outline
+    - What is outline of COMP474
+    - find outline of COMP474
+    - course outline COMP474
+
+- intent: q_10
+  examples: |
+    - What’s the dbpedia link for each topic?
+    - topic dbpedia link
+    - dbpedia link of topic
+    - List all topics links
