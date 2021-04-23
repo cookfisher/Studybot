@@ -255,7 +255,8 @@ class Query3(Action):
         print(matches)
         for match_id, start, end in matches:
             matched_span=doc[start:end]
-            k=matched_span.text
+            if "COMP" in matched_span.text:
+                k=matched_span.text
             print(matched_span.text)
         print(k)
 #        sst=tracker.latest_message['entities'][0]['value']
