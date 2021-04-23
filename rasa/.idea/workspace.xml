@@ -31,9 +31,25 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="437" y="225" key="com.intellij.ide.util.TipDialog" timestamp="1619133920367">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="437" y="225" key="com.intellij.ide.util.TipDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1619133920367" />
+    <state x="2576" y="344" key="com.intellij.ide.util.TipDialog/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1619101145863" />
     <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1618966684660">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1618966684660" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/actions/actions.py</url>
+          <line>210</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

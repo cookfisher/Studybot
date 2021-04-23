@@ -1,0 +1,223 @@
+version: "2.0"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+    
+- intent: goodbye
+  examples: |
+    - good afternoon
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+    
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+    
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+    
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+    
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+    
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+    
+- intent: about_person
+  examples: |
+    - Who is he?
+    - Who is [Joe](person)?
+    - Who is [Kate](person)?
+    - Who is [_ovo_](person)?
+    - Who is [](person)?
+    - tell me about him
+    - tell me about
+    - tell me about [peter](person)
+    - do you know [joe](person)?
+    
+- intent: about_course
+  examples: |
+    - What is description of [COMP471](course) about?
+    - What is description of [COMP472](course) about?
+    - What is description of [COMP473](course) about?
+    - What is description of [COMP474](course) about?
+    - What is description of [COMP475](course) about?
+    - What is description of [COMP476](course) about?
+    - What is description of [COMP479](course) about?
+    - What is description of [COMP445](course) about?
+    - What is description of [] about?
+    - What is descripiton of [_ovo_](course) about?
+    - tell me about its description
+    - tell me about description
+    - tell me about description of [COMP472](course)
+    - tell me about description of [COMP474](course)
+    
+- intent: about_course_topic
+  examples: |
+    - Which topic cover [Expert Systems](topic)?
+    - Which topic  cover
+    - topic please tell me about it
+    - topictell me about topic
+    
+- intent: about_course_event
+  examples: |
+    - Which events are covered in [Lab#1](event) of [COMP474](course)?
+    - Which events are covered in [Lab#2](event) of [COMP474](course)?
+    - Which events are covered in [Lab#3](event) of [COMP474](course)?
+    - Which events are covered in [Lab#4](event) of [COMP474](course)?
+    - Which events are covered in [Lab#5](event) of [COMP474](course)?
+    - Which events are covered in [Lab#6](event) of [COMP474](course)?
+    - Which events are covered in [Lab#7](event) of [COMP474](course)?
+    - Which events are covered in [Lab#8](event) of [COMP474](course)?
+    - Which events are covered in [Lab#9](event) of [COMP474](course)?
+    - Which events are covered in [Lab#10](event) of [COMP474](course)?
+    - Which events are covered in [Lab#11](event) of [COMP474](course)?
+    - Which events are covered in [Lab#12](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#1](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#2](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#3](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#4](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#5](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#6](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#7](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#8](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#9](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#10](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#11](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#12](event) of [COMP474](course)?
+    - Which events are covered in [Lecture#1](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#2](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#3](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#4](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#5](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#6](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#7](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#8](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#9](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#10](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#11](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#12](event) of [COMP474](course)?
+
+
+    - Which events are covered in [Lab#2](event)
+    - event please tell me about it
+    - event tell me about
+    
+- intent: q_1
+  examples: |
+    - List all courses' subject
+    - All courses' subject
+    - All courses subjects
+    
+- intent: q_2
+  examples: |
+    - lecture info about Comp474
+    - all lecture in [COMP474](course)
+    
+- intent: q_3
+  examples: |
+    - What topic is in the [COMP472](course)?
+    - What is topic of [COMP472](course)?
+    - topic of comp472?
+    
+- intent: q_4
+  examples: |
+    - COMP courses are as follows
+    - find all COMP course
+    
+- intent: q_5
+  examples: |
+    - All content in [COMP474](course)
+    - find all content in COMP474
+    
+- intent: q_6
+  examples: |
+    - [COMP472](course) course description
+    - What is course description of COMP472?
+    
+- intent: q_7
+  examples: |
+    - find all lectures
+    
+- intent: q_8
+  examples: |
+    - find all COMP474 lab info
+    - List all lab info in COMP474
+    
+- intent: q_9
+  examples: |
+    - COMP474 outline
+    - What is outline of COMP474
+    - find outline of COMP474
+    
+- intent: q_10
+  examples: |
+    - List all topics links

@@ -106,7 +106,6 @@ nlu:
     - What is [COMP474](course) about?
     - What is [COMP472](course) about?
     - tell me about it
-    - tell me about
     - tell me about [COMP472](course)
     - tell me about [COMP474](course)
 
@@ -124,3 +123,9 @@ nlu:
     - Which topics are covered in [Lab#2](event)
     - tell me about it
     - tell me about
+
+- intent: q_1
+  examples: |
+    - List all courses' subject
+    - All courses' subject
+    - All courses subjects
