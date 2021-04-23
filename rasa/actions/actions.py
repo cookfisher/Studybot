@@ -16,11 +16,19 @@ from rasa_sdk.executor import CollectingDispatcher
 def query(pass_query):
     # request server
     query_var = pass_query
-    response = requests.post('http://localhost:3030/focu/sparql', data={'query': query_var})
-    res = response.json()
-    res_1 = res['results']['bindings']
-    # print(res['results']['bindings'])
-    return res_1
+    try:
+        response = requests.post('http://localhost:3030/focu/sparql', data={'query': query_var})
+        res = response.json()
+        res_1 = res['results']['bindings']
+        return res_1
+    except:
+        return []
+
+    # response = requests.post('http://localhost:3030/focu/sparql', data={'query': query_var})
+    # res = response.json()
+    # res_1 = res['results']['bindings']
+    # # print(res['results']['bindings'])
+    # return res_1
 
 class ActionHelloWorld(Action):
 
@@ -76,10 +84,19 @@ class ActionCourse(Action):
         query_var = q1 + chosen_course + ' ' + q2
 
         json_return = query(query_var)
-        result = []
-        for item in json_return:
-            result.append(item['description']['value'])
-        dispatcher.utter_message(text=f"If you are asking about {tracker.slots['course']}, the results are as follows:{result}")
+        if len(json_return) < 1:
+            dispatcher.utter_message(text=f"Sorry, I do not know. ")
+        else:
+            result = []
+            for item in json_return:
+                result.append(item['description']['value'])
+            dispatcher.utter_message(
+                    text=f"If you are asking about {tracker.slots['course']}, the event includes all topics, such as{result} ")
+
+        # result = []
+        # for item in json_return:
+        #     result.append(item['description']['value'])
+        # dispatcher.utter_message(text=f"If you are asking about {tracker.slots['course']}, the results are as follows:{result}")
 
         return []
 
@@ -113,11 +130,20 @@ class ActionCourseTopic(Action):
         """.format(t=chosen_topic)
 
         json_return = query(query_var)
-        result = []
-        for item in json_return:
-            result.append(item['course']['value'])
+        if len(json_return) < 1:
+            dispatcher.utter_message(text=f"Sorry, I do not know. ")
+        else:
+            result = []
+            for item in json_return:
+                result.append(item['course']['value'])
+            dispatcher.utter_message(
+                    text=f"If you are asking about {chosen_topic}, the event includes all topics, such as{result} ")
 
-        dispatcher.utter_message(text=f"If you are asking about {chosen_topic}, the courses are as follows: ,{result}")
+        # result = []
+        # for item in json_return:
+        #     result.append(item['course']['value'])
+        #
+        # dispatcher.utter_message(text=f"If you are asking about {chosen_topic}, the courses are as follows: ,{result}")
 
         return []
 
@@ -133,9 +159,12 @@ class ActionCourseEvent(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         chosen_type = tracker.slots['event']
         chosen_course = tracker.slots['course']
+        # print('Rasa is passing value -> event is -> ', tracker.slots['event'])
+        # print('Rasa is passing value -> course is -> ', tracker.slots['course'])
         # print(chosen_course)
         # print('chosen type',chosen_type)
         chosen_event = chosen_course+'_'+chosen_type
+        # print('The final event name =>', chosen_event)
         # print('the event name is',chosen_event)
 
         query_var = """
@@ -148,18 +177,29 @@ class ActionCourseEvent(Action):
             Prefix teach: <http://linkedscience.org/teach/ns#>
             Prefix vivo: <http://vivoweb.org/ontology/core#>
             Prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-            SELECT ?course
+            SELECT ?topic
             WHERE
             {{
-              focudata:{t} focu:topicAssociateWith ?course.
+              ?topic a focu:Topic.
+              ?topic focu:topicAssociateWith focudata:{t}.
             }}
         """.format(t=chosen_event)
 
         json_return = query(query_var)
-        result = []
-        for item in json_return:
-            result.append(item['topic']['value'])
-        dispatcher.utter_message(text=f"If you are asking about {chosen_event}, the event includes all topics, such as{result} ")
+        # print('json return ==> ', json_return)
+        if len(json_return) < 1:
+            dispatcher.utter_message(text=f"Sorry, I do not know. ")
+        else:
+            result = []
+            for item in json_return:
+                result.append(item['topic']['value'])
+            dispatcher.utter_message(
+                    text=f"If you are asking about {chosen_event}, the event includes all topics, such as{result} ")
+
+        # result = []
+        # for item in json_return:
+        #     result.append(item['topic']['value'])
+        # dispatcher.utter_message(text=f"If you are asking about {chosen_event}, the event includes all topics, such as{result} ")
 
         return []
 
