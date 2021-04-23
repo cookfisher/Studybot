@@ -8,10 +8,19 @@
 # This is a simple example for a custom action which utters "Hello World!"
 import requests
 from typing import Any, Text, Dict, List
-
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+# import spacy
+# from spacy.matcher import Matcher
 
+def query(pass_query):
+    # request server
+    query_var = pass_query
+    response = requests.post('http://localhost:3030/focu/query', data={'query': query_var})
+    res = response.json()
+    res_1 = res['results']['bindings']
+    print(res['results']['bindings'])
+    return res_1
 
 class ActionHelloWorld(Action):
 
@@ -38,6 +47,121 @@ class ActionPerson(Action):
 
         return []
 
+# question 2. course description
+class ActionCourse(Action):
+
+    def name(self) -> Text:
+        return "action_course_info"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        # print('course is ', tracker.slots['course'])
+        chosen_course = tracker.slots['course']
+        # request server
+        q1 = """
+                Prefix dbr: <http://dbpedia.org/resource/>
+                Prefix focu: <http://focu.io/schema#>
+                Prefix focudata: <http://focu.io/data#>
+                Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                Prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                Prefix teach: <http://linkedscience.org/teach/ns#>
+                Prefix vivo: <http://vivoweb.org/ontology/core#>
+                Prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+                SELECT ?description
+                WHERE
+                {focudata:"""
+        q2 = """teach:courseDescription ?description.}
+            """
+        query_var = q1 + chosen_course + ' ' + q2
+
+        json_return = query(query_var)
+        result = []
+        for item in json_return:
+            result.append(item['description']['value'])
+        dispatcher.utter_message(text=f"If you are asking about {tracker.slots['course']}, the results are as follows:{result}")
+
+        return []
+
+# question 4. which courses cover this topic
+class ActionCourseTopic(Action):
+
+    def name(self) -> Text:
+        return "action_course_topic"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        chosen_topic = tracker.slots['topic']
+        # print('the slots name is', tracker.slots['topic'])
+
+        query_var = """
+            Prefix aiiso: <http://purl.org/vocab/aiiso/schema#>
+            Prefix dbr: <http://dbpedia.org/resource/>
+            Prefix focu: <http://focu.io/schema#>
+            Prefix focudata: <http://focu.io/data#>
+            Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            Prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            Prefix teach: <http://linkedscience.org/teach/ns#>
+            Prefix vivo: <http://vivoweb.org/ontology/core#>
+            Prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+            SELECT ?course
+            WHERE
+            {{
+              focudata:{t} focu:topicAssociateWith ?course. 
+            }}
+        """.format(t=chosen_topic)
+
+        json_return = query(query_var)
+        result = []
+        for item in json_return:
+            result.append(item['course']['value'])
+
+        dispatcher.utter_message(text=f"If you are asking about {chosen_topic}, the courses are as follows: ,{result}")
+
+        return []
+
+
+#question  3. what topics are covered in lab
+class ActionCourseEvent(Action):
+
+    def name(self) -> Text:
+        return "action_course_event"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        chosen_type = tracker.slots['event']
+        chosen_course = tracker.slots['course']
+        # print(chosen_course)
+        # print('chosen type',chosen_type)
+        chosen_event = chosen_course+'_'+chosen_type
+        # print('the event name is',chosen_event)
+
+        query_var = """
+            Prefix aiiso: <http://purl.org/vocab/aiiso/schema#>
+            Prefix dbr: <http://dbpedia.org/resource/>
+            Prefix focu: <http://focu.io/schema#>
+            Prefix focudata: <http://focu.io/data#>
+            Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            Prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            Prefix teach: <http://linkedscience.org/teach/ns#>
+            Prefix vivo: <http://vivoweb.org/ontology/core#>
+            Prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+            SELECT ?course
+            WHERE
+            {{
+              focudata:{t} focu:topicAssociateWith ?course.
+            }}
+        """.format(t=chosen_event)
+
+        json_return = query(query_var)
+        result = []
+        for item in json_return:
+            result.append(item['topic']['value'])
+        dispatcher.utter_message(text=f"If you are asking about {chosen_event}, the event includes all topics, such as{result} ")
+
+        return []
 
 # 1. How many courses in each subject?
 class Query1(Action):
@@ -150,6 +274,38 @@ class Query3(Action):
         ans = []
         for row in res['results']['bindings']:
             ans.append(row['topics']['value'])
+
+        # intent = tracker.latest_message['intent']
+        # # print(intent)
+        # ents = tracker.latest_message['entities']
+        # # print(ents)
+        # ssstt = tracker.latest_message['text']
+        # # print(ssstt)
+        # ssx = ssstt[9:16]
+        # # print(ssx)
+        # s = ssx
+        # nlp = spacy.load("en_core_web_sm")
+        # matcher = Matcher(nlp.vocab)
+        # pattern = [[{"POS": "NOUN"}]]
+        # matcher.add("CLASS_PATTERN", pattern)
+        # #        doc=nlp(ssstt)
+        # #        print("below is pattern from spacy")
+        # #        print(doc)
+        # #        doc=nlp("Upcoming iPhone X release date leaked")
+        # doc = nlp(ssstt)
+        # matches = matcher(doc)
+        # k = ""
+        # # print(matches)
+        # for match_id, start, end in matches:
+        #     matched_span = doc[start:end]
+        #     if "COMP" in matched_span.text:
+        #         k = matched_span.text
+        #     # print(matched_span.text)
+        # # print(k)
+        # #        sst=tracker.latest_message['entities'][0]['value']
+        # #        print(sst)
+        # dispatcher.utter_message(text="this is from query 3 " + s)
+
         dispatcher.utter_message(text=f"The course COMP472 is associated with the following topics {ans}")
 
         return []

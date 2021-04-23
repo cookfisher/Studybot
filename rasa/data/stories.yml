@@ -36,6 +36,27 @@ stories:
     - intent: about_person
     - action: action_person_info
 
+- story: get course info
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: about_course
+    - action: action_course_info
+
+- story: get course topic
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: about_course_topic
+    - action: action_course_topic
+
+- story: get course event
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: about_course_event
+    - action: action_course_event
+
 - story: answer query 1
   steps:
     - intent: q_1

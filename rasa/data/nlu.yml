@@ -109,6 +109,75 @@ nlu:
     - Do you know [Alice](person) ?
     - Tell me about [Jack](person) ?
 
+- intent: about_course
+  examples: |
+    - What is description of [COMP471](course) about?
+    - What is description of [COMP472](course) about?
+    - What is description of [COMP473](course) about?
+    - What is description of [COMP474](course) about?
+    - What is description of [COMP475](course) about?
+    - What is description of [COMP476](course) about?
+    - What is description of [COMP479](course) about?
+    - What is description of [COMP445](course) about?
+    - What is description of [] about?
+    - What is descripiton of [_ovo_](course) about?
+    - tell me about its description
+    - tell me about description
+    - tell me about description of [COMP472](course)
+    - tell me about description of [COMP474](course)
+
+- intent: about_course_event
+  examples: |
+    - Which topics are covered in [lab1](event) of [COMP474](course)?
+    - Which topics are covered in [lab2](event) of [COMP474](course)?
+    - Which events are covered in [lab3](event) of [COMP474](course)?
+    - Which events are covered in [lab4](event) of [COMP474](course)?
+    - Which events are covered in [lab5](event) of [COMP474](course)?
+    - Which events are covered in [lab6](event) of [COMP474](course)?
+    - Which events are covered in [lab7](event) of [COMP474](course)?
+    - Which events are covered in [lab8](event) of [COMP474](course)?
+    - Which events are covered in [lab9](event) of [COMP474](course)?
+    - Which events are covered in [lab10](event) of [COMP474](course)?
+    - Which events are covered in [lab11](event) of [COMP474](course)?
+    - Which events are covered in [lab12](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#1](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#2](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#3](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#4](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#5](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#6](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#7](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#8](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#9](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#10](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#11](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#12](event) of [COMP474](course)?
+    - Which events are covered in [Lecture#1](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#2](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#3](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#4](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#5](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#6](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#7](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#8](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#9](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#10](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#11](event) of [COMP474](course)?
+    - Which events are covered in [Tutorial#12](event) of [COMP474](course)?
+    - Which events are covered in [Lab#2](event)
+    - event please tell me about it
+    - event tell me about
+
+- intent: about_course_topic
+  examples: |
+    - Which courses cover [Expert Systems](topic)?
+    - Which courses cover [Expert_system](topic)?
+    - Which courses cover [Extrusion](topic)?
+    - Which courses cover [Eye_movement](topic)?
+    - Which courses  cover
+    - topic please tell me about it
+    - topic tell me about topic
+
 - intent: q_1
   examples: |
     - How many courses in each subject?

@@ -9,6 +9,9 @@ intents:
   - mood_unhappy
   - bot_challenge
   - about_person
+  - about_course
+  - action_course_topic
+  - action_course_event
   - q_1
   - q_2
   - q_3
@@ -46,14 +49,37 @@ session_config:
 
 entities:
   - person
+  - course
+  - topic
+  - event
+  - course_number
 
 slots:
   person:
     type: any
     initial_value: "initial"
 
+  course:
+    type: any
+    initial_value: "COMP474"
+
+  topic:
+    type: any
+    initial_value: "initial"
+
+  event:
+    type: any
+    initial_value: "Lab#2"
+
+  course_number:
+    type: any
+    initial_value: ''
+
 actions:
   - action_person_info
+  - action_course_info
+  - action_course_topic
+  - action_course_event
   - query_1
   - query_2
   - query_3
