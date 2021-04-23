@@ -74,7 +74,8 @@ class Query1(Action):
             ans.append([row['suject_name']['value'], row['course_number']['value']])
 
         dispatcher.utter_message(
-            text=f"All courses with its subjects are listed as following: {ans}, HaHa, there are so many but it is just what you asked (^-^)")
+            text=f"The number of courses in each subject are listed as following: {ans}, "
+                 f"HaHa, there are so many but it is just what you asked (^-^)")
 
         return []
 

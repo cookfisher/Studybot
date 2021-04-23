@@ -111,51 +111,74 @@ nlu:
 
 - intent: q_1
   examples: |
-    - List all courses' subject
-    - All courses' subject
-    - All courses subjects
+    - How many courses in each subject?
+    - List each subject with courses
+    - All subjects with courses
+    - All subjects courses
 
 - intent: q_2
   examples: |
-    - List all lecture info in Comp474
+    - Which lectures does course COMP474 have?
+    - List all lecture in Comp474
     - all lecture in [COMP474](course)
 
 - intent: q_3
   examples: |
+    - Which topics are associated with course COMP472?
+    - topic in COMP472
     - What is the [COMP472](course) topics?
     - What is topic of [COMP472](course)?
     - topic of comp472?
 
 - intent: q_4
   examples: |
+    - Which courses have the subject COMP?
     - List all course in 'COMP'
     - find all COMP course
+    - all COMP course
 
 - intent: q_5
   examples: |
+    - What’s the content of the lectures of COMP474?
+    - COMP474 lecture content
+    - content lecture COMP474
     - find all content in [COMP474](course)
     - find all content in COMP474
 
 - intent: q_6
   examples: |
+    - What’s the course description of COMP472?
+    - COMP474 course description
+    - course description COMP474
     - [COMP472](course) course description
     - What is course description of COMP472?
 
 - intent: q_7
   examples: |
-    - find all lectures
+    - In which lectures is the subject “Knowledge Graph” covered?
+    - find all lectures have "Knowledge Graph"
+    - lecture with subject "Knowledge Graph"
 
 - intent: q_8
   examples: |
+    - What’s the lab content for labs in COMP474?
     - find all COMP474 lab info
     - List all lab info in COMP474
+    - lab content COMP474
+    - COMP474 leb content
+    - lab info COMP474
 
 - intent: q_9
   examples: |
+    - What’s the course outline of COMP474?
     - COMP474 outline
     - What is outline of COMP474
     - find outline of COMP474
+    - course outline COMP474
 
 - intent: q_10
   examples: |
+    - What’s the dbpedia link for each topic?
+    - topic dbpedia link
+    - dbpedia link of topic
     - List all topics links
