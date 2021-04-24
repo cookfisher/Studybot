@@ -20,15 +20,22 @@ focu:Lab
   rdfs:comment "Lab Class"@en ;
   rdfs:subClassOf teach:Lecture .
 
+focu:Material
+  a rdfs:Class ;
+  rdfs:label "Course Material"@en ;
+  rdfs:comment "Course Material"@en .
+
 focu:Reading
   a rdfs:Class ;
   rdfs:label "Reading"@en ;
-  rdfs:comment "Reading"@en .
+  rdfs:comment "Reading"@en ;
+  rdfs:subClassOf focu:Material .
 
 focu:Slide
   a rdfs:Class ;
   rdfs:label "Slide"@en ;
-  rdfs:comment "Slide"@en .
+  rdfs:comment "Slide"@en ;
+  rdfs:subClassOf focu:Material .
 
 focu:Subject
   a rdfs:Class ;
@@ -49,7 +56,8 @@ focu:Tutorial
 focu:Worksheet
   a rdfs:Class ;
   rdfs:label "Worksheet"@en ;
-  rdfs:comment "Worksheet"@en .
+  rdfs:comment "Worksheet"@en ;
+  rdfs:subClassOf focu:Material .
 
 
 focu:content
@@ -57,7 +65,7 @@ focu:content
   rdfs:label "content"@en ;
   rdfs:comment "Lab content or tutorial content."@en ;
   rdfs:domain focu:Lab, focu:Tutorial ;
-  rdfs:range focu:Reading, focu:Slide, focu:Worksheet, vivo:Video .
+  rdfs:range focu:Material, vivo:Video .
 
 focu:outline
   a rdf:Property ;
@@ -106,6 +114,6 @@ focu:topicAssociateWith
   rdfs:label "topics"@en ;
   rdfs:comment "topics that are covered in a course or a lecture in a course."@en ;
   rdfs:domain focu:Topic ;
-  rdfs:range teach:Lecture, teach:Course .
+  rdfs:range teach:Lecture, teach:Course, focu:Material .
 
 
