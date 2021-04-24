@@ -1,0 +1,92 @@
+version: "2.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - about_person
+  - about_course
+  - action_course_topic
+  - action_course_event
+  - q_1
+  - q_2
+  - q_3
+  - q_4
+  - q_5
+  - q_6
+  - q_7
+  - q_8
+  - q_9
+  - q_10
+
+responses:
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+entities:
+  - person
+  - course
+  - topic
+  - event
+  - course_number
+
+slots:
+  person:
+    type: any
+    initial_value: "initial"
+
+  course:
+    type: any
+    initial_value: "COMP474"
+
+  topic:
+    type: any
+    initial_value: "initial"
+
+  event:
+    type: any
+    initial_value: "Lab#2"
+
+  course_number:
+    type: any
+    initial_value: ''
+
+actions:
+  - action_person_info
+  - action_course_info
+  - action_course_topic
+  - action_course_event
+  - query_1
+  - query_2
+  - query_3
+  - query_4
+  - query_5
+  - query_6
+  - query_7
+  - query_8
+  - query_9
+  - query_10
