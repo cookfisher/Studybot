@@ -1,0 +1,37 @@
+Prefix aiiso: <http://purl.org/vocab/aiiso/schema#> 
+Prefix dbr: <http://dbpedia.org/resource/> 
+Prefix focu: <http://focu.io/schema#> 
+Prefix focudata: <http://focu.io/data#> 
+Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+Prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+Prefix teach: <http://linkedscience.org/teach/ns#> 
+prefix vivo: <http://vivoweb.org/ontology/core#> 
+prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+SELECT ?course ?topic ?lable ?dbr_link ?slide ?lab ?lecture ?course
+WHERE {
+      ?course a teach:Course .
+      ?course focu:subject focudata:COMP .
+	  ?course aiiso:code 472 .
+      ?topic a focu:Topic.
+      ?topic rdfs:label ?lable .
+      FILTER (lang(?lable) = 'en')
+      ?topic  rdfs:seeAlso ?dbr_link .
+
+  {?topic focu:topicAssociateWith ?course . }
+union
+
+      {?topic focu:topicAssociateWith ?slide . 
+      ?lecture focu:content ?slide .
+    ?lecture focu:offeredIn ?course .
+  }
+
+union
+     {
+      ?topic focu:topicAssociateWith ?slide . 
+      ?lab focu:content ?slide .
+      ?lab focu:labAssociatedWith ?lecture .
+    ?lecture focu:offeredIn ?course .
+  }
+
+}
