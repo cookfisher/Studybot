@@ -120,7 +120,13 @@ g.add((topicAssociat, RDFS.comment, Literal('topics that are covered in a course
 g.add((topicAssociat, RDFS.domain, FC['Topic']))
 g.add((topicAssociat, RDFS.range, TEACH['Lecture']))
 g.add((topicAssociat, RDFS.range, TEACH['Course']))
+<<<<<<< HEAD
 g.add((topicAssociat, RDFS.range, FC['Material']))
+=======
+g.add((topicAssociat, RDFS.range, FC['Slide']))
+g.add((topicAssociat, RDFS.range, FC['Worksheet']))
+g.add((topicAssociat, RDFS.range, FC['Reading']))
+>>>>>>> e282e58323683df45f637a23605784fa41b18baa
 g.add((topicAssociat, RDFS.range, FC['Lab']))
 g.add((topicAssociat, RDFS.range, FC['Tutorial']))
 
