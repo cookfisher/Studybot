@@ -393,31 +393,32 @@ class Query5(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         query_var = """
-                Prefix aiiso: <http://purl.org/vocab/aiiso/schema#>
-                Prefix dbr: <http://dbpedia.org/resource/>
-                Prefix focu: <http://focu.io/schema#>
-                Prefix focudata: <http://focu.io/data#>
-                Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                Prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                Prefix teach: <http://linkedscience.org/teach/ns#>
-                Prefix vivo: <http://vivoweb.org/ontology/core#>
-                Prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-                SELECT ?lecture ?name ?content
-                WHERE
-                {
-                  ?lecture aiiso:name ?name.
-                  ?lecture focu:offeredIn focudata:COMP474 .
-                  ?lecture focu:content ?content.
-                  ?lecture aiiso:code ?lecture_code.
-                }
-                ORDER BY ?lecture_code
+            Prefix aiiso: <http://purl.org/vocab/aiiso/schema#>
+            Prefix dbr: <http://dbpedia.org/resource/>
+            Prefix focu: <http://focu.io/schema#>
+            Prefix focudata: <http://focu.io/data#>
+            Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            Prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            Prefix teach: <http://linkedscience.org/teach/ns#>
+            Prefix vivo: <http://vivoweb.org/ontology/core#>
+            Prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+
+            SELECT ?lecture ?name ?content
+            WHERE
+            {
+            ?lecture aiiso:name ?name.
+            ?lecture focu:offeredIn focudata:COMP474 .
+            ?lecture focu:content ?content.
+            ?lecture aiiso:code ?lecture_code.
+            }
+            ORDER BY ?lecture_code   
             """
         response = requests.post('http://localhost:3030/focu/sparql', data={'query': query_var})
         res = response.json()
         ans = []
         for row in res['results']['bindings']:
             ans.append([row['lecture']['value'], row['name']['value'], row['content']['value']])
-        dispatcher.utter_message(text=f"The content of the lectures of COMP474 has the following contents : [ans] ")
+        dispatcher.utter_message(text=f"The content of the lectures of COMP474 has the following contents : {ans} ")
 
         return []
 
