@@ -7,6 +7,7 @@
 @prefix teach: <http://linkedscience.org/teach/ns#> .
 @prefix vivo: <http://vivoweb.org/ontology/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 
 focu:CourseOutline
@@ -64,7 +65,7 @@ focu:content
   a rdf:Property ;
   rdfs:label "content"@en ;
   rdfs:comment "Lab content or tutorial content."@en ;
-  rdfs:domain focu:Lab, focu:Tutorial ;
+  rdfs:domain teach:Lecture ;
   rdfs:range focu:Material, vivo:Video .
 
 focu:outline

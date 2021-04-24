@@ -1,0 +1,24 @@
+PREFIX te: <http://www.w3.org/2006/time-entry#>
+Prefix aiiso: <http://purl.org/vocab/aiiso/schema#> 
+Prefix dbr: <http://dbpedia.org/resource/> 
+Prefix focu: <http://focu.io/schema#> 
+Prefix focudata: <http://focu.io/data#> 
+Prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+Prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+Prefix teach: <http://linkedscience.org/teach/ns#> 
+prefix vivo: <http://vivoweb.org/ontology/core#> 
+prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+SELECT ?course (count(?course) as ?count)
+WHERE {
+  ?topic a focu:Topic.
+  ?topic focu:topicAssociateWith ?course . 
+  {?course a teach:Course .}
+  union
+  {?course a teach:Lecture .}
+  union
+  {?course a focu:Lab .  }
+  ?topic rdfs:seeAlso dbr:Cartilage_oligomeric_matrix_protein .  
+}
+group by ?course
+order by ?count

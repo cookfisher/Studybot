@@ -94,23 +94,6 @@ nlu:
 - intent: about_person
   examples: |
     - Who is he?
-<<<<<<< HEAD
-    - Who is [Joe](person)?
-    - Who is [Kate](person)?
-    - tell me about him
-    - tell me about
-    - tell me about [peter](person)
-    - do you know [joe](person)?
-
-- intent: about_course
-  examples: |
-    - What is [COMP474](course) about?
-    - What is [COMP472](course) about?
-    - tell me about it
-    - tell me about
-    - tell me about [COMP472](course)
-    - tell me about [COMP474](course)
-=======
     - Who is [Joe](person) ?
     - Who is [Kate](person)?
     - Who is [_oov_](person)?
@@ -184,24 +167,10 @@ nlu:
     - Which events are covered in [Lab#2](event)
     - event please tell me about it
     - event tell me about
->>>>>>> origin/a2_jmw
 
 - intent: about_course_topic
   examples: |
     - Which courses cover [Expert Systems](topic)?
-<<<<<<< HEAD
-    - Which courses cover
-    - tell me about it
-    - tell me about
-
-
-- intent: about_course_event
-  examples: |
-    - Which topics are covered in [Lab#2](event) of [COMP474](course)?
-    - Which topics are covered in [Lab#2](event)
-    - tell me about it
-    - tell me about
-=======
     - Which courses cover [Expert_system](topic)?
     - Which courses cover [Extrusion](topic)?
     - Which courses cover [Eye_movement](topic)?
@@ -288,4 +257,3 @@ nlu:
     - topic dbpedia link
     - dbpedia link of topic
     - List all topics links
->>>>>>> origin/a2_jmw

@@ -94,8 +94,7 @@ content = FC['content']
 g.add((content, RDF.type, RDF.Property))
 g.add((content, RDFS.label, Literal('content', lang='en')))
 g.add((content, RDFS.comment, Literal('Lab content or tutorial content.', lang='en')))
-g.add((content, RDFS.domain, FC['Lab']))
-g.add((content, RDFS.domain, FC['Tutorial']))
+g.add((content, RDFS.domain, TEACH['Lecture']))
 g.add((content, RDFS.range, FC['Material']))
 g.add((content, RDFS.range, VIVO['Video']))
 
@@ -120,19 +119,10 @@ g.add((topicAssociat, RDFS.comment, Literal('topics that are covered in a course
 g.add((topicAssociat, RDFS.domain, FC['Topic']))
 g.add((topicAssociat, RDFS.range, TEACH['Lecture']))
 g.add((topicAssociat, RDFS.range, TEACH['Course']))
-<<<<<<< HEAD
-<<<<<<< HEAD
+# g.add((topicAssociat, RDFS.range, FC['Slide']))
+# g.add((topicAssociat, RDFS.range, FC['Worksheet']))
+# g.add((topicAssociat, RDFS.range, FC['Reading']))
 g.add((topicAssociat, RDFS.range, FC['Material']))
-=======
-g.add((topicAssociat, RDFS.range, FC['Slide']))
-g.add((topicAssociat, RDFS.range, FC['Worksheet']))
-g.add((topicAssociat, RDFS.range, FC['Reading']))
->>>>>>> e282e58323683df45f637a23605784fa41b18baa
-=======
-g.add((topicAssociat, RDFS.range, FC['Slide']))
-g.add((topicAssociat, RDFS.range, FC['Worksheet']))
-g.add((topicAssociat, RDFS.range, FC['Reading']))
->>>>>>> origin/a2_jmw
 g.add((topicAssociat, RDFS.range, FC['Lab']))
 g.add((topicAssociat, RDFS.range, FC['Tutorial']))
 
@@ -195,7 +185,6 @@ def add_lecture_name_comp472(file_name):
     text = text.split('(')[0].strip()
     pdf.close()
     return text
-<<<<<<< HEAD
 
 
 def add_lectures(course_name):
@@ -252,64 +241,6 @@ def add_worksheets(course_name):
         add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, lec, worksheet)
 
 
-=======
-
-
-def add_lectures(course_name):
-    folder_name = '.\\' + course_name + '\Lectures'
-    _, _, file_names = next(walk(folder_name))
-
-    for i in range(len(file_names)):
-        slide = URIRef(Path(getcwd() + folder_name[1:] + '\\' + file_names[i]).as_uri())
-        g.add((slide, RDF.type, FC['Slide']))
-
-        lec = FCD[course_name + '_lecture' + str(i + 1)]
-        g.add((lec, RDF.type, TEACH['Lecture']))
-        if course_name == 'COMP472':
-            g.add((lec, AIISO['name'], Literal(add_lecture_name_comp472(getcwd() + folder_name[1:] + '\\' + file_names[i]))))
-        # elif course_name == 'COMP474':
-        #     g.add((lec, AIISO['name'], Literal(add_lecture_name_comp474(getcwd() + folder_name[1:] + '\\' + file_names[i]))))
-        g.add((lec, AIISO['code'], Literal(str(i + 1), datatype=XSD['integer'])))
-        g.add((lec, FC['content'], slide))
-        g.add((lec, FC['offeredIn'], FCD[course_name]))
-
-        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, lec, slide)
-
-
-def add_labs(course_name):
-    folder_name = '.\\' + course_name + '\Labs'
-    _, _, file_names = next(walk(folder_name))
-
-    for i in range(len(file_names)):
-        slide = URIRef(Path(getcwd() + folder_name[1:] + '\\' + file_names[i]).as_uri())
-        g.add((slide, RDF.type, FC['Slide']))
-
-        lab = FCD[course_name + '_lab' + str(i + 1)]
-        g.add((lab, RDF.type, FC['Lab']))
-        g.add((lab, AIISO['name'], Literal(course_name + '_lab' + str(i + 1))))
-        g.add((lab, AIISO['code'], Literal(str(i + 1), datatype=XSD['integer'])))
-        g.add((lab, FC['content'], slide))
-        g.add((lab, FC['labAssociatedWith'], FCD[course_name + '_lecture' + str(i + 1)]))
-        # g.add((lab2, RDFS.seeAlso, URIRef('https://rdflib.readthedocs.io/en/stable/index.html')))
-
-        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, lab, slide)
-
-
-def add_worksheets(course_name):
-    folder_name = '.\\' + course_name + '\Worksheets'
-    _, _, file_names = next(walk(folder_name))
-
-    for i in range(len(file_names)):
-        worksheet = URIRef(Path(getcwd() + folder_name[1:] + '\\' + file_names[i]).as_uri())
-        g.add((worksheet, RDF.type, FC['Worksheet']))
-
-        lec = FCD[course_name + '_lecture' + str(i + 2)]
-        g.add((lec, FC['content'], worksheet))
-
-        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, lec, worksheet)
-
-
->>>>>>> origin/a2_jmw
 def add_course_outline(course_name):
     folder_name = '.\\' + course_name + '\Course_Outline'
     _, _, file_names = next(walk(folder_name))

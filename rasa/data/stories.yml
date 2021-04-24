@@ -55,9 +55,6 @@ stories:
     - intent: greet
     - action: utter_greet
     - intent: about_course_event
-<<<<<<< HEAD
-    - action: action_course_event
-=======
     - action: action_course_event
 
 - story: answer query 1
@@ -109,4 +106,3 @@ stories:
   steps:
     - intent: q_10
     - action: query_10
->>>>>>> origin/a2_jmw

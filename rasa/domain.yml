@@ -12,8 +12,6 @@ intents:
   - about_course
   - action_course_topic
   - action_course_event
-<<<<<<< HEAD
-=======
   - q_1
   - q_2
   - q_3
@@ -24,7 +22,6 @@ intents:
   - q_8
   - q_9
   - q_10
->>>>>>> origin/a2_jmw
 
 responses:
   utter_greet:
@@ -55,10 +52,7 @@ entities:
   - course
   - topic
   - event
-<<<<<<< HEAD
-=======
   - course_number
->>>>>>> origin/a2_jmw
 
 slots:
   person:
@@ -77,21 +71,15 @@ slots:
     type: any
     initial_value: "Lab#2"
 
-<<<<<<< HEAD
-=======
   course_number:
     type: any
     initial_value: ''
 
->>>>>>> origin/a2_jmw
 actions:
   - action_person_info
   - action_course_info
   - action_course_topic
   - action_course_event
-<<<<<<< HEAD
-
-=======
   - query_1
   - query_2
   - query_3
@@ -102,4 +90,3 @@ actions:
   - query_8
   - query_9
   - query_10
->>>>>>> origin/a2_jmw
