@@ -3,6 +3,10 @@ from rdflib.namespace import XSD, RDF, RDFS
 from pathlib import Path
 from os import getcwd
 import pandas as pd
+from os import walk
+import pdfplumber
+import requests
+
 
 g = Graph()
 
@@ -110,6 +114,11 @@ g.add((topicAssociat, RDFS.comment, Literal('topics that are covered in a course
 g.add((topicAssociat, RDFS.domain, FC['Topic']))
 g.add((topicAssociat, RDFS.range, TEACH['Lecture']))
 g.add((topicAssociat, RDFS.range, TEACH['Course']))
+g.add((topicAssociat, RDFS.range, FC['Slide']))
+g.add((topicAssociat, RDFS.range, FC['Worksheet']))
+g.add((topicAssociat, RDFS.range, FC['Reading']))
+g.add((topicAssociat, RDFS.range, FC['Lab']))
+g.add((topicAssociat, RDFS.range, FC['Tutorial']))
 
 offeredAt = FC['offeredAt']
 g.add((offeredAt, RDF.type, RDF.Property))
@@ -125,146 +134,131 @@ g.add((offeredIn, RDFS.comment, Literal('a lecture is in a course.', lang='en'))
 g.add((offeredIn, RDFS.domain, TEACH['Lecture']))
 g.add((offeredIn, RDFS.range, TEACH['Course']))
 
-# data
-concordia = FCD['Concordia_University']
-g.add((concordia, RDF.type, VIVO['University']))
-g.add((concordia, AIISO['name'], Literal('Concordia University')))
-g.add((concordia, RDFS.seeAlso, DBR['Concordia_University']))
 
-# 2 examples
-video1 = URIRef('https://www.youtube.com/watch?v=P18EdAKuC1U')
-g.add((video1, RDF.type, VIVO['Video']))
+def add_topics(text, course_name, lec, slide):
+    # print(text)
+    spot_light_url = f'https://api.dbpedia-spotlight.org/en/annotate?text={text}'
+    headers = {'accept': 'application/json'}
+    if requests.get(url=spot_light_url, headers=headers).status_code == 200:
+        response = requests.get(url=spot_light_url, headers=headers).json()
+        response = response.get('Resources')
+        if response is not None:
+            for item in response:
+                dbr_link = item['@URI']
+                dbr_name = dbr_link[28:]
+                # print(dbr_name)
 
-slide1 = URIRef(Path(getcwd() + '\COMP474\Lectures\slides01.pdf').as_uri())
-g.add((slide1, RDF.type, FC['Slide']))
-
-slide2 = URIRef(Path(getcwd() + '\COMP474\Lectures\slides02.pdf').as_uri())
-g.add((slide2, RDF.type, FC['Slide']))
-
-worksheet1 = URIRef(Path(getcwd() + '\COMP474\Lectures\worksheet01.pdf').as_uri())
-g.add((worksheet1, RDF.type, FC['Worksheet']))
-
-reading1 = URIRef(Path(getcwd() + '\COMP474\Lectures\py_tut.pdf').as_uri())
-g.add((reading1, RDF.type, FC['Reading']))
-
-outline1 = URIRef(Path(getcwd() + '\COMP474\course_outline_comp474_6741_w2021.pdf').as_uri())
-g.add((outline1, RDF.type, FC['CourseOutline']))
-
-lec1 = FCD['COMP474_lecture1']
-g.add((lec1, RDF.type, TEACH['Lecture']))
-g.add((lec1, AIISO['name'], Literal('Introduction to Intelligent Systems')))
-g.add((lec1, AIISO['code'], Literal('1', datatype=XSD['integer'])))
-g.add((lec1, FC['content'], slide1))
-g.add((lec1, FC['content'], video1))
-g.add((lec1, FC['offeredIn'], FCD['COMP474']))
-
-lec2 = FCD['COMP474_lecture2']
-g.add((lec2, RDF.type, TEACH['Lecture']))
-g.add((lec2, AIISO['name'], Literal('Knowledge Graphs')))
-g.add((lec2, AIISO['code'], Literal('2', datatype=XSD['integer'])))
-g.add((lec2, FC['content'], slide2))
-g.add((lec2, FC['content'], worksheet1))
-g.add((lec2, FC['content'], reading1))
-g.add((lec2, FC['offeredIn'], FCD['COMP474']))
-
-class2 = FCD['COMP474']
-# g.add((class2, TEACH['courseDescription'], Literal(
-#     "agent‑based. Knowledge acquisition and representation. Uncertainty and conflict resolution. Reasoning and "
-#     "explanation. Design of intelligent systems. Project. Lectures: three hours per week. Laboratory: two hours per "
-#     "week.")))
-g.add((class2, FC['outline'], outline1))
-
-# class3 = FCD['COMP472']
-# g.add((class3, TEACH['courseDescription'], Literal(
-#     "Intelligence. Then it covers knowledge representation, heuristic search, game playing and planning. Finally, "
-#     "it introduces the topics of machine learning, genetic algorithms and natural language processing. A project is "
-#     "required. Lectures: three hours per week. Laboratory: two hours per week.")))
+                topic = FCD[dbr_name]
+                g.add((topic, RDF.type, FC['Topic']))
+                g.add((topic, RDFS.label, Literal(dbr_name, lang='en')))
+                g.add((topic, AIISO['name'], Literal(dbr_name)))
+                g.add((topic, FC['topicAssociateWith'], FCD[course_name]))
+                if lec is not None:
+                    g.add((topic, FC['topicAssociateWith'], lec))
+                if slide is not None:
+                    g.add((topic, FC['topicAssociateWith'], slide))
+                g.add((topic, RDFS.seeAlso, DBR[dbr_name]))
 
 
-slide3 = URIRef(Path(getcwd() + '\COMP472\Lectures\intro-Winter2020.pdf').as_uri())
-g.add((slide3, RDF.type, FC['Slide']))
-
-slide4 = URIRef(Path(getcwd() + '\COMP472\Lectures\search-Winter2020.pdf').as_uri())
-g.add((slide4, RDF.type, FC['Slide']))
-
-lec3 = FCD['COMP472_lecture1']
-g.add((lec3, RDF.type, TEACH['Lecture']))
-g.add((lec3, AIISO['name'], Literal('Artificial Intelligence: Introduction')))
-g.add((lec3, AIISO['code'], Literal('1', datatype=XSD['integer'])))
-g.add((lec3, FC['content'], slide3))
-g.add((lec3, FC['offeredIn'], FCD['COMP472']))
-
-lec4 = FCD['COMP472_lecture2']
-g.add((lec4, RDF.type, TEACH['Lecture']))
-g.add((lec4, AIISO['name'], Literal('Artificial Intelligence: State Space Search')))
-g.add((lec4, AIISO['code'], Literal('2', datatype=XSD['integer'])))
-g.add((lec3, FC['content'], slide4))
-g.add((lec4, FC['offeredIn'], FCD['COMP472']))
+def add_topics_file(file_name, course_name, lec, slide):
+    print(file_name)
+    pdf = pdfplumber.open(file_name)
+    for i in range(len(pdf.pages)):
+        page = pdf.pages[i]
+        text = page.extract_text()
+        add_topics(text, course_name, lec, slide)
+    pdf.close()
 
 
-lab1 = FCD['COMP474_lab1']
-g.add((lab1, RDF.type, FC['Lab']))
-g.add((lab1, AIISO['name'], Literal('COMP474_Lab_1')))
-g.add((lab1, AIISO['code'], Literal('1', datatype=XSD['integer'])))
-g.add((lab1, FC['content'], URIRef('https://moodle.concordia.ca/moodle/mod/page/view.php?id=2608092')))
-g.add((lab1, FC['labAssociatedWith'], FCD['COMP474_lecture1']))
-
-lab2 = FCD['COMP474_lab2']
-g.add((lab2, RDF.type, FC['Lab']))
-g.add((lab2, AIISO['name'], Literal('COMP474_Lab_2')))
-g.add((lab2, AIISO['code'], Literal('2', datatype=XSD['integer'])))
-g.add((lab2, FC['content'], URIRef('https://moodle.concordia.ca/moodle/mod/page/view.php?id=2575768')))
-g.add((lab2, FC['labAssociatedWith'], FCD['COMP474_lecture2']))
-g.add((lab2, RDFS.seeAlso, URIRef('https://rdflib.readthedocs.io/en/stable/index.html')))
-
-slide5 = URIRef(Path(getcwd() + '\COMP472\Lectures\COMP_472_Lab1.pdf').as_uri())
-g.add((slide5, RDF.type, FC['Slide']))
-
-slide6 = URIRef(Path(getcwd() + '\COMP472\Lectures\COMP_472_Lab2.pdf').as_uri())
-g.add((slide6, RDF.type, FC['Slide']))
-
-lab3 = FCD['COMP472_lab1']
-g.add((lab3, RDF.type, FC['Lab']))
-g.add((lab3, AIISO['name'], Literal('COMP472_Lab_1')))
-g.add((lab3, AIISO['code'], Literal('1', datatype=XSD['integer'])))
-g.add((lab3, FC['content'], slide5))
-g.add((lab3, FC['labAssociatedWith'], FCD['COMP472_lecture1']))
-
-lab4 = FCD['COMP472_lab2']
-g.add((lab4, RDF.type, FC['Lab']))
-g.add((lab4, AIISO['name'], Literal('COMP472_Lab_2')))
-g.add((lab4, AIISO['code'], Literal('2', datatype=XSD['integer'])))
-g.add((lab4, FC['content'], slide6))
-g.add((lab4, FC['labAssociatedWith'], FCD['COMP472_lecture2']))
-g.add((lab4, RDFS.seeAlso, URIRef('https://rdflib.readthedocs.io/en/stable/index.html')))
+def add_lecture_name_comp472(file_name):
+    pdf = pdfplumber.open(file_name)
+    page = pdf.pages[0]
+    text = page.extract_text().strip()
+    text = text.split('Russell')[0][26:].strip()
+    text = text.split('\uf0a7')[0].strip()
+    text = text.split('(')[0].strip()
+    pdf.close()
+    return text
 
 
-topic1 = FCD['Knowledge_Graph']
-g.add((topic1, RDF.type, FC['Topic']))
-g.add((topic1, AIISO['name'], Literal('Knowledge Graph')))
-g.add((topic1, FC['topicAssociateWith'], FCD['COMP474']))
-g.add((topic1, FC['topicAssociateWith'], FCD['COMP474_lecture2']))
-g.add((topic1, RDFS.seeAlso, DBR['Knowledge_Graph']))
+def add_lectures(course_name):
+    folder_name = '.\\' + course_name + '\Lectures'
+    _, _, file_names = next(walk(folder_name))
 
-topic2 = FCD['Expert_system']
-g.add((topic2, RDF.type, FC['Topic']))
-g.add((topic2, AIISO['name'], Literal('Expert System')))
-g.add((topic2, FC['topicAssociateWith'], FCD['COMP474']))
-g.add((topic2, RDFS.seeAlso, DBR['Expert_system']))
+    for i in range(len(file_names)):
+        slide = URIRef(Path(getcwd() + folder_name[1:] + '\\' + file_names[i]).as_uri())
+        g.add((slide, RDF.type, FC['Slide']))
 
-topic3 = FCD['Breadth-first_search']
-g.add((topic3, RDF.type, FC['Topic']))
-g.add((topic3, AIISO['name'], Literal('Breadth-first_search')))
-g.add((topic3, FC['topicAssociateWith'], FCD['COMP472']))
-g.add((topic3, FC['topicAssociateWith'], FCD['COMP472_lecture2']))
-g.add((topic3, RDFS.seeAlso, DBR['Breadth-first_search']))
+        lec = FCD[course_name + '_lecture' + str(i + 1)]
+        g.add((lec, RDF.type, TEACH['Lecture']))
+        if course_name == 'COMP472':
+            g.add((lec, AIISO['name'], Literal(add_lecture_name_comp472(getcwd() + folder_name[1:] + '\\' + file_names[i]))))
+        # elif course_name == 'COMP474':
+        #     g.add((lec, AIISO['name'], Literal(add_lecture_name_comp474(getcwd() + folder_name[1:] + '\\' + file_names[i]))))
+        g.add((lec, AIISO['code'], Literal(str(i + 1), datatype=XSD['integer'])))
+        g.add((lec, FC['content'], slide))
+        g.add((lec, FC['offeredIn'], FCD[course_name]))
 
-topic4 = FCD['Depth-first_search']
-g.add((topic4, RDF.type, FC['Topic']))
-g.add((topic4, AIISO['name'], Literal('Depth-first_search')))
-g.add((topic4, FC['topicAssociateWith'], FCD['COMP472']))
-g.add((topic4, FC['topicAssociateWith'], FCD['COMP472_lecture2']))
-g.add((topic4, RDFS.seeAlso, DBR['Depth-first_search']))
+        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, lec, slide)
+
+
+def add_labs(course_name):
+    folder_name = '.\\' + course_name + '\Labs'
+    _, _, file_names = next(walk(folder_name))
+
+    for i in range(len(file_names)):
+        slide = URIRef(Path(getcwd() + folder_name[1:] + '\\' + file_names[i]).as_uri())
+        g.add((slide, RDF.type, FC['Slide']))
+
+        lab = FCD[course_name + '_lab' + str(i + 1)]
+        g.add((lab, RDF.type, FC['Lab']))
+        g.add((lab, AIISO['name'], Literal(course_name + '_lab' + str(i + 1))))
+        g.add((lab, AIISO['code'], Literal(str(i + 1), datatype=XSD['integer'])))
+        g.add((lab, FC['content'], slide))
+        g.add((lab, FC['labAssociatedWith'], FCD[course_name + '_lecture' + str(i + 1)]))
+        # g.add((lab2, RDFS.seeAlso, URIRef('https://rdflib.readthedocs.io/en/stable/index.html')))
+
+        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, lab, slide)
+
+
+def add_worksheets(course_name):
+    folder_name = '.\\' + course_name + '\Worksheets'
+    _, _, file_names = next(walk(folder_name))
+
+    for i in range(len(file_names)):
+        worksheet = URIRef(Path(getcwd() + folder_name[1:] + '\\' + file_names[i]).as_uri())
+        g.add((worksheet, RDF.type, FC['Worksheet']))
+
+        lec = FCD[course_name + '_lecture' + str(i + 2)]
+        g.add((lec, FC['content'], worksheet))
+
+        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, lec, worksheet)
+
+
+def add_course_outline(course_name):
+    folder_name = '.\\' + course_name + '\Course_Outline'
+    _, _, file_names = next(walk(folder_name))
+
+    for i in range(len(file_names)):
+        outline = URIRef(Path(getcwd() + folder_name[1:] + '\\' + file_names[i]).as_uri())
+        g.add((outline, RDF.type, FC['CourseOutline']))
+
+        g.add((FCD[course_name], FC['outline'], outline))
+
+        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, None, None)
+
+
+def add_readings(course_name):
+    folder_name = '.\\' + course_name + '\Readings'
+    _, _, file_names = next(walk(folder_name))
+
+    for i in range(len(file_names)):
+        reading = URIRef(Path(getcwd() + folder_name[1:] + '\\' + file_names[i]).as_uri())
+        g.add((reading, RDF.type, FC['Reading']))
+        lec = FCD[course_name + '_lecture' + str(int(file_names[i][3:5]))]
+        g.add((lec, FC['content'], reading))
+
+        add_topics_file(getcwd() + folder_name[1:] + '\\' + file_names[i], course_name, lec, reading)
 
 
 def subject_generator(subject_name):
@@ -300,9 +294,53 @@ for index, row in table_merged.iterrows():
     if row['Course ID'] not in course_ids:
         course_ids.append(row['Course ID'])
         course_generator(row['Subject'], row['Catalog'], row['Long Title'], row['Class Units'], row['Descr'])
+        if not ('Please see GRAD Calendar' in str(row['Descr'])
+                or 'Please see UGRD Calendar' in str(row['Descr'])
+                or 'Please see Graduate Calendar' in str(row['Descr'])
+                or 'Please see Undergraduate Calendar' in str(row['Descr'])
+                or 'nan' == str(row['Descr'])):
+            add_topics(row['Descr'], row['Subject']+row['Catalog'], None, None)
 
 for item in subjects:
     subject_generator(item)
 
+course_name = 'COMP472'
+add_lectures(course_name)
+add_labs(course_name)
+
+course_name = 'COMP474'
+add_lectures(course_name)
+add_labs(course_name)
+add_worksheets(course_name)
+add_course_outline(course_name)
+add_readings(course_name)
+
+# data
+concordia = FCD['Concordia_University']
+g.add((concordia, RDF.type, VIVO['University']))
+g.add((concordia, AIISO['name'], Literal('Concordia University')))
+g.add((concordia, RDFS.seeAlso, DBR['Concordia_University']))
+
+video1 = URIRef('https://www.youtube.com/watch?v=P18EdAKuC1U')
+g.add((video1, RDF.type, VIVO['Video']))
+
+lec1 = FCD['COMP474_lecture1']
+g.add((lec1, FC['content'], video1))
+
+g.add((FCD['COMP474_lecture1'], AIISO['name'], Literal('Intelligent Systems Introduction')))
+g.add((FCD['COMP474_lecture2'], AIISO['name'], Literal('Knowledge Graphs')))
+g.add((FCD['COMP474_lecture3'], AIISO['name'], Literal('Vocabularies & Ontologies')))
+g.add((FCD['COMP474_lecture4'], AIISO['name'], Literal('Knowledge Base Queries & SPARQL')))
+g.add((FCD['COMP474_lecture5'], AIISO['name'], Literal('Knowledge Base Design & Applications')))
+g.add((FCD['COMP474_lecture6'], AIISO['name'], Literal('Recommender Systems')))
+g.add((FCD['COMP474_lecture7'], AIISO['name'], Literal('Machine Learning for Intelligent Systems')))
+g.add((FCD['COMP474_lecture8'], AIISO['name'], Literal('Intelligent Agents')))
+g.add((FCD['COMP474_lecture9'], AIISO['name'], Literal('Text Mining')))
+g.add((FCD['COMP474_lecture10'], AIISO['name'], Literal('Neural Networks & Word Embeddings')))
+g.add((FCD['COMP474_lecture11'], AIISO['name'], Literal('Introduction to Deep Learning')))
+g.add((FCD['COMP474_lecture12'], AIISO['name'], Literal('Deep Learning for Intelligent Systems')))
+
+
 g.serialize(format='nt', destination="school.nt")
+g.serialize(format='ttl', destination="school.ttl")
 
