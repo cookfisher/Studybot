@@ -7,6 +7,7 @@
 @prefix teach: <http://linkedscience.org/teach/ns#> .
 @prefix vivo: <http://vivoweb.org/ontology/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 
 focu:CourseOutline
@@ -20,15 +21,22 @@ focu:Lab
   rdfs:comment "Lab Class"@en ;
   rdfs:subClassOf teach:Lecture .
 
+focu:Material
+  a rdfs:Class ;
+  rdfs:label "Course Material"@en ;
+  rdfs:comment "Course Material"@en .
+
 focu:Reading
   a rdfs:Class ;
   rdfs:label "Reading"@en ;
-  rdfs:comment "Reading"@en .
+  rdfs:comment "Reading"@en ;
+  rdfs:subClassOf focu:Material .
 
 focu:Slide
   a rdfs:Class ;
   rdfs:label "Slide"@en ;
-  rdfs:comment "Slide"@en .
+  rdfs:comment "Slide"@en ;
+  rdfs:subClassOf focu:Material .
 
 focu:Subject
   a rdfs:Class ;
@@ -49,15 +57,16 @@ focu:Tutorial
 focu:Worksheet
   a rdfs:Class ;
   rdfs:label "Worksheet"@en ;
-  rdfs:comment "Worksheet"@en .
+  rdfs:comment "Worksheet"@en ;
+  rdfs:subClassOf focu:Material .
 
 
 focu:content
   a rdf:Property ;
   rdfs:label "content"@en ;
   rdfs:comment "Lab content or tutorial content."@en ;
-  rdfs:domain focu:Lab, focu:Tutorial ;
-  rdfs:range focu:Reading, focu:Slide, focu:Worksheet, vivo:Video .
+  rdfs:domain teach:Lecture ;
+  rdfs:range focu:Material, vivo:Video .
 
 focu:outline
   a rdf:Property ;
@@ -106,6 +115,6 @@ focu:topicAssociateWith
   rdfs:label "topics"@en ;
   rdfs:comment "topics that are covered in a course or a lecture in a course."@en ;
   rdfs:domain focu:Topic ;
-  rdfs:range teach:Lecture, teach:Course .
+  rdfs:range teach:Lecture, teach:Course, focu:Material .
 
 

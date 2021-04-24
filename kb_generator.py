@@ -43,18 +43,26 @@ g.add((topic, RDF.type, RDFS.Class))
 g.add((topic, RDFS.label, Literal('Topic', lang='en')))
 g.add((topic, RDFS.comment, Literal('Topic Class', lang='en')))
 
+material = FC['Material']
+g.add((material, RDF.type, RDFS.Class))
+g.add((material, RDFS.label, Literal('Material', lang='en')))
+g.add((material, RDFS.comment, Literal('Material', lang='en')))
+
 slide = FC['Slide']
 g.add((slide, RDF.type, RDFS.Class))
+g.add((slide, RDFS['subClassOf'], FC['Material']))
 g.add((slide, RDFS.label, Literal('Slide', lang='en')))
 g.add((slide, RDFS.comment, Literal('Slide', lang='en')))
 
 worksheet = FC['Worksheet']
 g.add((worksheet, RDF.type, RDFS.Class))
+g.add((worksheet, RDFS['subClassOf'], FC['Material']))
 g.add((worksheet, RDFS.label, Literal('Worksheet', lang='en')))
 g.add((worksheet, RDFS.comment, Literal('Worksheet', lang='en')))
 
 reading = FC['Reading']
 g.add((reading, RDF.type, RDFS.Class))
+g.add((reading, RDFS['subClassOf'], FC['Material']))
 g.add((reading, RDFS.label, Literal('Reading', lang='en')))
 g.add((reading, RDFS.comment, Literal('Reading', lang='en')))
 
@@ -86,11 +94,8 @@ content = FC['content']
 g.add((content, RDF.type, RDF.Property))
 g.add((content, RDFS.label, Literal('content', lang='en')))
 g.add((content, RDFS.comment, Literal('Lab content or tutorial content.', lang='en')))
-g.add((content, RDFS.domain, FC['Lab']))
-g.add((content, RDFS.domain, FC['Tutorial']))
-g.add((content, RDFS.range, FC['Slide']))
-g.add((content, RDFS.range, FC['Worksheet']))
-g.add((content, RDFS.range, FC['Reading']))
+g.add((content, RDFS.domain, TEACH['Lecture']))
+g.add((content, RDFS.range, FC['Material']))
 g.add((content, RDFS.range, VIVO['Video']))
 
 labAssociat = FC['labAssociateWith']
@@ -114,9 +119,10 @@ g.add((topicAssociat, RDFS.comment, Literal('topics that are covered in a course
 g.add((topicAssociat, RDFS.domain, FC['Topic']))
 g.add((topicAssociat, RDFS.range, TEACH['Lecture']))
 g.add((topicAssociat, RDFS.range, TEACH['Course']))
-g.add((topicAssociat, RDFS.range, FC['Slide']))
-g.add((topicAssociat, RDFS.range, FC['Worksheet']))
-g.add((topicAssociat, RDFS.range, FC['Reading']))
+# g.add((topicAssociat, RDFS.range, FC['Slide']))
+# g.add((topicAssociat, RDFS.range, FC['Worksheet']))
+# g.add((topicAssociat, RDFS.range, FC['Reading']))
+g.add((topicAssociat, RDFS.range, FC['Material']))
 g.add((topicAssociat, RDFS.range, FC['Lab']))
 g.add((topicAssociat, RDFS.range, FC['Tutorial']))
 
