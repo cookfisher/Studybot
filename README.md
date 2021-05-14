@@ -1,5 +1,5 @@
 # comp474_A1
-</br>
+
 Task List:</br>
 - [ ] Competency Questions
 - [ ] Vocabulary
