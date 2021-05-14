@@ -15,7 +15,3 @@ Task List:</br>
 - [x] Report
 - [x] Submission
 - [x] Demo
-
-set own SPARQL Server
-Note:Default security, using shiro, limits access to localhost.  /$/** = localhostFilter <- change to 'anon'
-
